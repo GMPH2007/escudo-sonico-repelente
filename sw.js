@@ -1,4 +1,4 @@
-const CACHE_NAME = 'escudo-sonico-v8-bluetooth-boost';
+const CACHE_NAME = 'escudo-sonico-v9-aturdimiento';
 const ASSETS = [
   './',
   './index.html',

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta name="theme-color" content="#0284c7">
+    <meta name="theme-color" content="#dc2626">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -11,7 +11,7 @@
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" href="icon-192.png">
     <link rel="apple-touch-icon" href="icon-192.png">
-    <title>Escudo Sónico: Decibeles Boost, Roedores y Exterminio</title>
+    <title>Escudo Sónico: Máximo Poder y Aturdimiento Acústico</title>
     <style>
         * {
             box-sizing: border-box;
@@ -19,7 +19,7 @@
         }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background: radial-gradient(circle at center top, #0b1329 0%, #030712 100%);
+            background: radial-gradient(circle at center top, #1a0b1e 0%, #030712 100%);
             color: #f8fafc;
             display: flex;
             justify-content: center;
@@ -31,12 +31,12 @@
         .card {
             background: rgba(17, 24, 39, 0.95);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(56, 189, 248, 0.25);
+            border: 1px solid rgba(239, 68, 68, 0.35);
             border-radius: 26px;
             padding: 20px;
             max-width: 550px;
             width: 100%;
-            box-shadow: 0 25px 60px -10px rgba(0, 0, 0, 0.9), 0 0 35px rgba(56, 189, 248, 0.12);
+            box-shadow: 0 25px 60px -10px rgba(0, 0, 0, 0.9), 0 0 35px rgba(239, 68, 68, 0.15);
             text-align: center;
         }
         #installContainer {
@@ -61,7 +61,6 @@
             justify-content: center;
             gap: 8px;
             box-shadow: 0 0 18px rgba(2, 132, 199, 0.45);
-            animation: pulse-border 2s infinite;
         }
         .btn-dismiss-install {
             background: #1e293b;
@@ -74,10 +73,6 @@
             cursor: pointer;
             white-space: nowrap;
         }
-        @keyframes pulse-border {
-            0%, 100% { box-shadow: 0 0 12px rgba(2, 132, 199, 0.4); }
-            50% { box-shadow: 0 0 22px rgba(56, 189, 248, 0.75); }
-        }
         .version-row {
             display: flex;
             align-items: center;
@@ -85,8 +80,9 @@
             margin-bottom: 10px;
             font-size: 11px;
             font-weight: 700;
-            color: #94a3b8;
-            background: rgba(15, 23, 42, 0.6);
+            color: #f87171;
+            background: rgba(220, 38, 38, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.3);
             padding: 6px 12px;
             border-radius: 10px;
         }
@@ -118,11 +114,16 @@
             border-radius: 9999px;
             text-transform: uppercase;
         }
-        .badge-bt {
-            background: rgba(59, 130, 246, 0.2);
-            color: #60a5fa;
-            border: 1px solid rgba(59, 130, 246, 0.5);
+        .badge-overload {
+            background: rgba(239, 68, 68, 0.25);
+            color: #f87171;
+            border: 1px solid #ef4444;
             font-weight: 900;
+            animation: pulse-red 1.5s infinite;
+        }
+        @keyframes pulse-red {
+            0%, 100% { box-shadow: 0 0 10px rgba(239, 68, 68, 0.3); }
+            50% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.7); }
         }
         .badge-anti-adapt {
             background: rgba(245, 158, 11, 0.2);
@@ -137,8 +138,8 @@
         h1 {
             font-size: 21px;
             margin: 0 0 4px 0;
-            color: #38bdf8;
-            font-weight: 800;
+            color: #ef4444;
+            font-weight: 900;
             letter-spacing: -0.5px;
         }
         p.subtitle {
@@ -148,10 +149,9 @@
             line-height: 1.4;
         }
 
-        /* Selector de Salida (Celular vs Bluetooth Boost) */
         .output-selector-box {
             background: rgba(15, 23, 42, 0.8);
-            border: 1px solid rgba(56, 189, 248, 0.3);
+            border: 1px solid rgba(239, 68, 68, 0.3);
             border-radius: 14px;
             padding: 10px;
             margin-bottom: 12px;
@@ -169,7 +169,7 @@
         .output-title span {
             display: block;
             font-size: 9.5px;
-            color: #38bdf8;
+            color: #f87171;
         }
         .output-buttons {
             display: flex;
@@ -187,10 +187,10 @@
             transition: all 0.2s ease;
         }
         .btn-output-mode.active {
-            background: linear-gradient(135deg, #0284c7, #2563eb);
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
             color: white;
-            border-color: #38bdf8;
-            box-shadow: 0 0 12px rgba(56, 189, 248, 0.5);
+            border-color: #ef4444;
+            box-shadow: 0 0 12px rgba(239, 68, 68, 0.5);
         }
 
         .monitor {
@@ -220,37 +220,31 @@
             transition: all 0.3s ease;
         }
         .dot.active {
-            background: #22c55e;
-            box-shadow: 0 0 12px #22c55e;
-            animation: blink 1.2s infinite;
+            background: #ef4444;
+            box-shadow: 0 0 14px #ef4444;
+            animation: blink-fast 0.6s infinite;
         }
-        @keyframes blink {
+        @keyframes blink-fast {
             0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
+            50% { opacity: 0.3; }
         }
         .freq-num {
-            font-size: 30px;
+            font-size: 28px;
             font-weight: 900;
-            color: #38bdf8;
+            color: #ef4444;
             letter-spacing: 1px;
             margin: 2px 0;
             transition: color 0.3s ease;
         }
-        .freq-num.alarm { color: #f43f5e; }
-        .freq-num.rat { color: #f97316; }
-        .freq-num.dog { color: #f59e0b; }
-        .freq-num.cat { color: #ec4899; }
-        .freq-num.pest { color: #84cc16; }
-        .freq-num.patrol { color: #ef4444; }
         .freq-badge {
             font-size: 11px;
-            color: #22c55e;
+            color: #f87171;
             font-weight: 700;
             min-height: 18px;
         }
         canvas#waveCanvas {
             width: 100%;
-            height: 36px;
+            height: 38px;
             margin-top: 8px;
             background: #020617;
             border-radius: 8px;
@@ -260,7 +254,7 @@
             font-size: 10.5px;
             font-weight: 800;
             letter-spacing: 0.8px;
-            color: #64748b;
+            color: #94a3b8;
             text-transform: uppercase;
             margin: 10px 0 5px 4px;
             display: flex;
@@ -300,39 +294,9 @@
             transform: scale(0.98);
         }
         button.btn-mode.active {
-            background: linear-gradient(135deg, #0284c7, #0369a1);
-            border-color: #38bdf8;
-            box-shadow: 0 0 12px rgba(56, 189, 248, 0.35);
-        }
-        button.btn-mode.active.alarm {
-            background: linear-gradient(135deg, #e11d48, #be123c);
-            border-color: #fb7185;
-            box-shadow: 0 0 15px rgba(244, 63, 94, 0.5);
-        }
-        button.btn-mode.active.rat {
-            background: linear-gradient(135deg, #ea580c, #c2410c);
-            border-color: #fb923c;
-            box-shadow: 0 0 12px rgba(234, 88, 12, 0.4);
-        }
-        button.btn-mode.active.dog {
-            background: linear-gradient(135deg, #d97706, #b45309);
-            border-color: #f59e0b;
-            box-shadow: 0 0 12px rgba(245, 158, 11, 0.35);
-        }
-        button.btn-mode.active.cat {
-            background: linear-gradient(135deg, #db2777, #be185d);
-            border-color: #f472b6;
-            box-shadow: 0 0 12px rgba(236, 72, 153, 0.35);
-        }
-        button.btn-mode.active.pest {
-            background: linear-gradient(135deg, #65a30d, #4d7c0f);
-            border-color: #a3e635;
-            box-shadow: 0 0 12px rgba(132, 204, 22, 0.35);
-        }
-        button.btn-mode.active.patrol {
-            background: linear-gradient(135deg, #dc2626, #991b1b);
-            border-color: #f87171;
-            box-shadow: 0 0 12px rgba(239, 68, 68, 0.4);
+            background: linear-gradient(135deg, #b91c1c, #991b1b);
+            border-color: #ef4444;
+            box-shadow: 0 0 14px rgba(239, 68, 68, 0.5);
         }
         .vol-box {
             background: rgba(15, 23, 42, 0.7);
@@ -349,19 +313,19 @@
             color: #94a3b8;
             margin-bottom: 5px;
         }
-        .vol-label span.val { color: #22c55e; }
+        .vol-label span.val { color: #ef4444; }
         input[type="range"] {
             width: 100%;
             height: 6px;
-            accent-color: #38bdf8;
+            accent-color: #ef4444;
             background: #334155;
             border-radius: 6px;
             outline: none;
         }
         .btn-main {
-            background: linear-gradient(135deg, #16a34a, #15803d);
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
             color: white;
-            padding: 14px;
+            padding: 15px;
             width: 100%;
             font-size: 15px;
             border-radius: 12px;
@@ -369,22 +333,21 @@
             cursor: pointer;
             font-weight: 900;
             letter-spacing: 0.5px;
-            box-shadow: 0 8px 20px rgba(22, 163, 74, 0.35);
+            box-shadow: 0 8px 25px rgba(220, 38, 38, 0.45);
             transition: all 0.2s ease;
         }
         .btn-main:active {
             transform: scale(0.98);
         }
         .btn-main.stop {
-            background: linear-gradient(135deg, #dc2626, #b91c1c);
-            box-shadow: 0 8px 20px rgba(220, 38, 38, 0.35);
+            background: linear-gradient(135deg, #475569, #334155);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
         }
 
-        /* Sección de Soluciones Reales y Fórmulas de Exterminio */
         .real-tips-box {
             margin-top: 14px;
             background: rgba(15, 23, 42, 0.85);
-            border: 1px solid rgba(56, 189, 248, 0.35);
+            border: 1px solid rgba(239, 68, 68, 0.3);
             border-radius: 14px;
             padding: 14px;
             text-align: left;
@@ -394,7 +357,7 @@
         .real-tips-box h3 {
             margin: 0 0 10px 0;
             font-size: 13px;
-            color: #38bdf8;
+            color: #f87171;
             display: flex;
             align-items: center;
             gap: 6px;
@@ -484,139 +447,118 @@
         </div>
 
         <div class="version-row">
-            <span>✨ VERSIÓN 8.0 (BLUETOOTH DECIBELES BOOST)</span>
+            <span>⚡ VERSIÓN 9.0 (SOBRECARGA Y ATURDIMIENTO TOTAL)</span>
             <button class="btn-reload" onclick="forzarActualizacion()">🔄 Limpiar Caché</button>
         </div>
 
         <div class="header-badges">
-            <div class="badge badge-bt">📢 BLUETOOTH BOOST ACTIVO</div>
-            <div class="badge badge-anti-adapt">⚡ ANTI-ACOSTUMBRAMIENTO</div>
+            <div class="badge badge-overload">💥 SOBRECARGA SÓNICA 100%</div>
+            <div class="badge badge-anti-adapt">⚡ SALTO CAÓTICO 12Hz</div>
             <div class="badge badge-bg">🎧 2° PLANO</div>
         </div>
 
-        <h1>Escudo Sónico & Control de Plagas</h1>
-        <p class="subtitle">Disuasión acústica de largo alcance y <strong>fórmulas reales para eliminar plagas en casa y parcelas</strong>.</p>
+        <h1>Aturdimiento y Disuasión Extrema</h1>
+        <p class="subtitle">Presión acústica agresiva para <strong>desorientar, saturar tímpanos y ahuyentar animales molestos</strong>.</p>
 
-        <!-- Selector de Altavoz (Celular vs Bluetooth 95dB+) -->
+        <!-- Selector de Altavoz -->
         <div class="output-selector-box">
             <div class="output-title">
                 POTENCIA DE SALIDA:
-                <span id="outputDesc">📢 Boost para Parlante Bluetooth (95 dB+)</span>
+                <span id="outputDesc">📢 Boost Máximo Parlante Bluetooth (RMS 100%)</span>
             </div>
             <div class="output-buttons">
                 <button class="btn-output-mode" onclick="setOutputMode('phone', this)">📱 Celular</button>
-                <button class="btn-output-mode active" onclick="setOutputMode('bluetooth', this)">📢 Bluetooth</button>
+                <button class="btn-output-mode active" onclick="setOutputMode('bluetooth', this)">📢 Bluetooth Boost</button>
             </div>
         </div>
 
         <div class="monitor">
             <div class="monitor-status">
                 <span id="dot" class="dot"></span>
-                <span id="statusTxt">PARLANTES EN ESPERA (TOCA ACTIVAR)</span>
+                <span id="statusTxt">LISTO PARA ACTIVAR (MÁXIMO PODER)</span>
             </div>
-            <div class="freq-num alarm" id="freqNum">2,800 + 3,250 Hz</div>
-            <div class="freq-badge" id="freqBadge">💥 DOBLE ONDA DISONANTE (Máxima potencia decibeles para asustar animales)</div>
+            <div class="freq-num" id="freqNum">2,600 ➔ 4,800 Hz</div>
+            <div class="freq-badge" id="freqBadge">🚨 ATURDIMIENTO ACÚSTICO MILITAR (Sirena caótica destructora de tímpanos animales)</div>
             <canvas id="waveCanvas"></canvas>
         </div>
 
-        <!-- 1. DISUASIÓN ACÚSTICA REAL AUDIBLE (MAX DECIBELES PARA PARLANTES) -->
-        <div class="category-title" style="color: #fb7185;">💥 ALTO IMPACTO (DISUASIÓN AUDIBLE 95dB+ PARA PARLANTES):</div>
+        <!-- 1. MODO ATURDIMIENTO MÁXIMO (AUDIBLE DESTRUCTIVO 98dB+) -->
+        <div class="category-title" style="color: #ef4444;">💥 MODO CHOQUE Y SOBRECARGA (MÁXIMO EFECTO EN ANIMALES):</div>
         <div class="btn-grid" style="grid-template-columns: 1fr;">
-            <button class="btn-mode active alarm" onclick="setMode('real_alarm', this)">
-                <span class="t">🚨 Sirena Transónica de Choque (Doble Onda Disonante)</span>
-                <span class="d">Genera batimiento acústico que dobla los decibeles reales en parlantes Bluetooth. Ahuyenta perros agresivos, gatos y roedores al instante por reflejo de sobresalto.</span>
+            <button class="btn-mode active" onclick="setMode('military_shock', this)">
+                <span class="t">🚨 Aturdimiento Acústico Militar (2,600 - 4,800 Hz Caótico)</span>
+                <span class="d">Genera sobrecarga sensorial insoportable en el canal auditivo de perros y gatos. Modulación rápida a 12 Hz con saturación WaveShaper para que no lo toleren ni 10 segundos.</span>
             </button>
         </div>
 
-        <!-- 2. ROEDORES Y PARCELAS -->
-        <div class="category-title" style="color: #fb923c;">🐁 ROEDORES Y PARCELAS (RATAS Y RATONES):</div>
+        <!-- 2. ATURDIMIENTO ULTRASÓNICO EXTREMO (ROEDORES, GATOS Y PERROS) -->
+        <div class="category-title" style="color: #fb923c;">⚡ ATURDIMIENTO ULTRASÓNICO (SATURACIÓN CÓCLEA ANIMAL):</div>
         <div class="btn-grid" style="grid-template-columns: 1fr;">
-            <button class="btn-mode rat" onclick="setMode('rodent_chaos', this)">
-                <span class="t">🐁 Desalojo Roedores y Ratas (22 - 24.5 kHz Caótico)</span>
-                <span class="d">Salto continuo de frecuencia que impide que las ratas aniden en techos, bodegas o parcelas.</span>
+            <button class="btn-mode" onclick="setMode('ultrasonic_overload', this)">
+                <span class="t">⚡ Sobrecarga Cóclea Ultrasónica (22 - 25 kHz Ráfaga Pura)</span>
+                <span class="d">Inaudible personas. Bombardeo continuo a alta presión acústica contra ratas, roedores de parcela y gatos en techos.</span>
             </button>
         </div>
 
-        <!-- 3. INSECTOS Y PLAGAS (CUCARACHAS, HORMIGAS, MOSCAS, ZANCUDOS) -->
-        <div class="category-title" style="color: #a3e635;">🪳 INSECTOS Y PLAGAS DE JARDÍN:</div>
+        <!-- 3. OTROS MODOS RÁPIDOS -->
+        <div class="category-title">🛡️ MODOS ESPECÍFICOS:</div>
         <div class="btn-grid">
-            <button class="btn-mode pest" onclick="setMode('insect_pulse', this)">
-                <span class="t">🪳 Cucarachas / Hormigas (Micro-Onda)</span>
-                <span class="d">Vibración acústica de desorientación.</span>
-            </button>
-            <button class="btn-mode pest" onclick="setMode('mosquito_silent', this)">
-                <span class="t">🦟 Zancudos / Moscas (20.8 kHz)</span>
-                <span class="d">Interferencia en antenas sensoriales.</span>
-            </button>
-        </div>
-
-        <!-- 4. DEFENSAS ANIMALES -->
-        <div class="category-title">🐕 PERROS, 🐱 GATOS Y 🦇 MURCIÉLAGOS:</div>
-        <div class="btn-grid">
-            <button class="btn-mode cat" onclick="setMode('cat_fight', this)">
+            <button class="btn-mode" onclick="setMode('cat_fight', this)">
                 <span class="t">🐱 Gatos Techos (22.5 kHz)</span>
-                <span class="d">Corta peleas y carreras.</span>
+                <span class="d">Disuelve peleas nocturnas.</span>
             </button>
-            <button class="btn-mode dog" onclick="setMode('dog_silent', this)">
-                <span class="t">🐕 Perros Silbato (22.0 kHz)</span>
-                <span class="d">Silbato canino inaudible personas.</span>
+            <button class="btn-mode" onclick="setMode('dog_silent', this)">
+                <span class="t">🐕 Silbato Perros (22.0 kHz)</span>
+                <span class="d">Freno canino ultrasónico.</span>
             </button>
-        </div>
-
-        <!-- 5. PATRULLAJE 360 -->
-        <div class="category-title">🚨 MODO PATRULLAJE NOCTURNO:</div>
-        <div class="btn-grid" style="grid-template-columns: 1fr;">
-            <button class="btn-mode patrol" onclick="setMode('auto_patrol', this)">
-                <span class="t">🚨 Patrullaje 360° Total (Rotación Continua en Segundo Plano)</span>
-                <span class="d">Alterna entre todas las amenazas automáticamente con pantalla apagada.</span>
+            <button class="btn-mode" onclick="setMode('mosquito_silent', this)">
+                <span class="t">🦟 Zancudos (20.8 kHz)</span>
+                <span class="d">Perturbación de antenas.</span>
+            </button>
+            <button class="btn-mode" onclick="setMode('auto_patrol', this)">
+                <span class="t">🚨 Patrullaje 360° Total</span>
+                <span class="d">Ciclo continuo en segundo plano.</span>
             </button>
         </div>
 
         <!-- Volume Slider -->
         <div class="vol-box">
             <div class="vol-label">
-                <span>Volumen Maestro / Potencia:</span>
-                <span id="volVal" class="val">100%</span>
+                <span>Potencia de Salida / Volumen:</span>
+                <span id="volVal" class="val">100% (Potencia Total)</span>
             </div>
             <input type="range" id="volSlider" min="10" max="100" value="100" oninput="updateVol(this.value)">
         </div>
 
-        <button id="toggleBtn" class="btn-main" onclick="togglePlay()">▶ ACTIVAR ESCUDO AHORA</button>
+        <button id="toggleBtn" class="btn-main" onclick="togglePlay()">💥 ACTIVAR ATURDIMIENTO AHORA</button>
 
-        <!-- GUÍA DEFINITIVA DE EXTERMINIO REAL DE PLAGAS -->
+        <!-- GUÍA DE EXTERMINIO DEFINITIVO -->
         <div class="real-tips-box">
-            <h3>🔬 Fórmulas Reales para Exterminar Cada Plaga:</h3>
+            <h3>🔬 Fórmulas Reales de Exterminio 100% Efectivas:</h3>
             
             <div class="tip-item">
-                <strong>🪳 Cucarachas (Exterminio Total en 48 Horas):</strong>
-                Las cucarachas son sordas al ultrasonido (no tienen oídos). 
-                <span class="formula">✨ La Fórmula Letal: Mezcla 1 cucharada de <strong>Ácido Bórico en polvo</strong> con 1 cucharada de <strong>leche condensada o azúcar impalpable</strong>. Haz bolitas pequeñas y ponlas detrás de la cocina, nevera y esquinas oscuras. Se lo comen, se contagian entre ellas y muere todo el nido.</span>
+                <strong>🪳 Cucarachas (Exterminio en 48 Horas):</strong>
+                <span class="formula">✨ Mezcla 1 cucharada de <strong>Ácido Bórico en polvo</strong> con 1 cucharada de <strong>leche condensada o azúcar</strong>. Haz bolitas y colócalas en rincones oscuros y detrás de la cocina. Mueren y contagian a todo el nido.</span>
             </div>
 
             <div class="tip-item">
-                <strong>🐜 Hormigas (Mata la Reina y el Hormiguero):</strong>
-                Las hormigas se guían por feromonas, no por sonido.
-                <span class="formula">✨ La Fórmula Letal: Disuelve 1 cucharadita de <strong>Bórax o Ácido Bórico</strong> con 2 cucharadas de <strong>azúcar en 1/4 taza de agua tibia</strong>. Coloca tapitas de gaseosa con este líquido en su camino. Las obreras llevan el veneno a la reina y el hormiguero se extingue por completo.</span>
+                <strong>🐜 Hormigas (Destruye el Hormiguero y la Reina):</strong>
+                <span class="formula">✨ Disuelve 1 cucharadita de <strong>Bórax o Ácido Bórico</strong> con 2 cucharadas de <strong>azúcar en agua tibia</strong>. Ponlo en tapitas. Se lo llevan a la reina y muere el hormiguero entero.</span>
             </div>
 
             <div class="tip-item">
                 <strong>🦟 Zancudos y 🪰 Moscas:</strong>
-                <span class="formula">✨ Solución 100% Efectiva: Para zancudos usa <strong>pastillas termo-evaporables</strong> en el enchufe o espirales. En el cuerpo, spray con <strong>DEET al 25%</strong>. Para moscas, corta una botella de plástico, pon vinagre de manzana con azúcar y una gota de detergente; entran y se ahogan solas.</span>
+                <span class="formula">✨ Para zancudos: <strong>pastillas termo-evaporables</strong> en el enchufe y spray con <strong>DEET al 25%</strong> en la piel. Para moscas: botella cortada con vinagre de manzana y detergente.</span>
             </div>
 
             <div class="tip-item">
                 <strong>🐁 Ratas y Roedores en Parcelas:</strong>
-                <span class="formula">✨ Solución: Conecta el celular a un <strong>parlante Bluetooth exterior</strong> en modo Roedores o Sirena a 95dB para evitar que aniden. En el suelo, pon <strong>trampas de golpe con mantequilla de maní</strong> (mucho más efectiva que el queso) y sella los agujeros con <strong>esponja de alambre de acero</strong> (no la pueden morder).</span>
+                <span class="formula">✨ Conecta la app en un <strong>parlante Bluetooth exterior a todo volumen</strong> en modo Sobrecarga. En el suelo, pon <strong>trampas de golpe con mantequilla de maní</strong> y sella los agujeros con esponja de alambre de acero.</span>
             </div>
 
             <div class="tip-item">
                 <strong>🐍 Serpientes / Culebras en Rocas:</strong>
-                <span class="formula">✨ Solución: Esparce <strong>azufre en polvo o cal</strong> en el perímetro de las rocas y grietas. La reacción química irrita su piel y las hace huir.</span>
-            </div>
-
-            <div class="tip-item">
-                <strong>🐕 Perros y 🐱 Gatos:</strong>
-                <span class="formula">✨ Solución: Usa el modo <strong>Sirena Transónica</strong> en un parlante Bluetooth para ahuyentarlos con 95dB. En techos, pon botellas transparentes con agua o rocía vinagre y cáscaras de limón.</span>
+                <span class="formula">✨ Esparce <strong>azufre en polvo o cal</strong> en el perímetro de las rocas y grietas. La acidez las hace huir.</span>
             </div>
         </div>
     </div>
@@ -702,25 +644,38 @@
             window.location.reload(true);
         }
 
-        // Audio Engine con Doble Oscilador Disonante para Bluetooth Boost
+        // Motor Acústico de Aturdimiento con WaveShaper y Modulación Rápida 12Hz
         let audioCtx = null;
         let isPlaying = false;
-        let currentMode = 'real_alarm';
-        let outputMode = 'bluetooth'; // 'phone' o 'bluetooth'
+        let currentMode = 'military_shock';
+        let outputMode = 'bluetooth';
         let osc1 = null;
         let osc2 = null;
         let gainNode = null;
+        let shaper = null;
         let compressor = null;
         let timerLoop = null;
         let patrolTimer = null;
-        let antiAdaptTimer = null;
         let lastPatrolTime = Date.now();
         let analyser = null;
         let animId = null;
         let wakeLock = null;
 
-        const patrolModes = ['real_alarm', 'rodent_chaos', 'cat_fight', 'dog_silent', 'insect_pulse'];
+        const patrolModes = ['military_shock', 'ultrasonic_overload', 'cat_fight', 'dog_silent'];
         let patrolIdx = 0;
+
+        // Curva Sigmoide WaveShaper para maximizar la energía RMS (potencia de aturdimiento)
+        function makeDistortionCurve(amount) {
+            const k = typeof amount === 'number' ? amount : 25;
+            const n_samples = 44100;
+            const curve = new Float32Array(n_samples);
+            const deg = Math.PI / 180;
+            for (let i = 0; i < n_samples; ++i) {
+                const x = (i * 2) / n_samples - 1;
+                curve[i] = ((3 + k) * x * 20 * deg) / (Math.PI + k * Math.abs(x));
+            }
+            return curve;
+        }
 
         function setOutputMode(mode, btn) {
             outputMode = mode;
@@ -729,7 +684,7 @@
 
             const desc = document.getElementById('outputDesc');
             if (mode === 'bluetooth') {
-                desc.textContent = "📢 Boost para Parlante Bluetooth (95 dB+)";
+                desc.textContent = "📢 Boost Máximo Parlante Bluetooth (RMS 100%)";
             } else {
                 desc.textContent = "📱 Calibrado para Parlante Celular";
             }
@@ -741,13 +696,12 @@
         }
 
         function getModeTitle(mode) {
-            if (mode === 'real_alarm') return "Sirena Transónica 95dB";
-            if (mode === 'rodent_chaos') return "Roedores y Ratas";
-            if (mode === 'insect_pulse') return "Cucarachas/Hormigas";
-            if (mode === 'mosquito_silent') return "Anti-Zancudos";
-            if (mode === 'cat_fight') return "Gatos (Peleas)";
-            if (mode === 'dog_silent') return "Silbato Canino";
-            if (mode === 'auto_patrol') return "Patrullaje 360°";
+            if (mode === 'military_shock') return "Aturdimiento Militar";
+            if (mode === 'ultrasonic_overload') return "Sobrecarga Ultrasónica";
+            if (mode === 'cat_fight') return "Gatos Techos";
+            if (mode === 'dog_silent') return "Silbato Perros";
+            if (mode === 'mosquito_silent') return "Zancudos";
+            if (mode === 'auto_patrol') return "Patrullaje Total";
             return "Escudo Sónico";
         }
 
@@ -755,8 +709,8 @@
             if ('mediaSession' in navigator) {
                 navigator.mediaSession.metadata = new MediaMetadata({
                     title: 'Escudo Sónico: ' + modeName,
-                    artist: outputMode === 'bluetooth' ? 'Bluetooth Boost 95dB+' : 'Parlante Móvil Activo',
-                    album: '100% Offline en Segundo Plano',
+                    artist: 'Aturdimiento Máximo en Segundo Plano',
+                    album: '100% Offline Activo',
                     artwork: [
                         { src: 'icon-192.png', sizes: '192x192', type: 'image/png' },
                         { src: 'icon-512.png', sizes: '512x512', type: 'image/png' }
@@ -790,17 +744,9 @@
         }
 
         function setMode(mode, btn) {
-            document.querySelectorAll('.btn-mode').forEach(b => b.classList.remove('active', 'dog', 'cat', 'rat', 'pest', 'patrol', 'alarm'));
+            document.querySelectorAll('.btn-mode').forEach(b => b.classList.remove('active'));
             currentMode = mode;
-            if (btn) {
-                btn.classList.add('active');
-                if (mode === 'real_alarm') btn.classList.add('alarm');
-                if (mode === 'rodent_chaos') btn.classList.add('rat');
-                if (mode === 'insect_pulse' || mode === 'mosquito_silent') btn.classList.add('pest');
-                if (mode.startsWith('dog')) btn.classList.add('dog');
-                if (mode.startsWith('cat')) btn.classList.add('cat');
-                if (mode === 'auto_patrol') btn.classList.add('patrol');
-            }
+            if (btn) btn.classList.add('active');
 
             updateMonitorDisplay(mode);
 
@@ -813,36 +759,25 @@
         function updateMonitorDisplay(mode) {
             const numEl = document.getElementById('freqNum');
             const badgeEl = document.getElementById('freqBadge');
-            numEl.className = 'freq-num';
 
-            if (mode === 'real_alarm') {
-                numEl.textContent = "2,800 + 3,250 Hz";
-                numEl.classList.add('alarm');
-                badgeEl.textContent = "💥 DOBLE ONDA DISONANTE (Máxima potencia decibeles para asustar animales)";
-            } else if (mode === 'rodent_chaos') {
-                numEl.textContent = "22 - 24.5 kHz (Caótico)";
-                numEl.classList.add('rat');
-                badgeEl.textContent = "🐁 DESALOJO ROEDORES (Salto impredecible: ratas, ratones y parcelas)";
-            } else if (mode === 'insect_pulse') {
-                numEl.textContent = "19,500 Hz (Micro-Onda)";
-                numEl.classList.add('pest');
-                badgeEl.textContent = "🪳 CUCARACHAS / HORMIGAS (Perturbación de cerdas sensoriales)";
-            } else if (mode === 'mosquito_silent') {
-                numEl.textContent = "20,800 Hz";
-                numEl.classList.add('pest');
-                badgeEl.textContent = "🦟 ZANCUDOS (Inaudible personas, perturba antenas)";
+            if (mode === 'military_shock') {
+                numEl.textContent = "2,600 ➔ 4,800 Hz";
+                badgeEl.textContent = "🚨 ATURDIMIENTO ACÚSTICO MILITAR (Sirena caótica destructora de tímpanos animales)";
+            } else if (mode === 'ultrasonic_overload') {
+                numEl.textContent = "22 - 25 kHz (Overload)";
+                badgeEl.textContent = "⚡ SOBRECARGA CÓCLEA ULTRASÓNICA (Saturación insoportable para roedores y gatos)";
             } else if (mode === 'cat_fight') {
-                numEl.textContent = "22,500 Hz (Anti-Adapt)";
-                numEl.classList.add('cat');
-                badgeEl.textContent = "🐱 GATOS (Peleas y techos con salto de frecuencia)";
+                numEl.textContent = "22,500 Hz";
+                badgeEl.textContent = "🐱 GATOS (Peleas y techos)";
             } else if (mode === 'dog_silent') {
                 numEl.textContent = "22,000 Hz";
-                numEl.classList.add('dog');
-                badgeEl.textContent = "🐕 PERROS (Silbato inaudible personas)";
+                badgeEl.textContent = "🐕 SILBATO CANINO INAUDIBLE";
+            } else if (mode === 'mosquito_silent') {
+                numEl.textContent = "20,800 Hz";
+                badgeEl.textContent = "🦟 ZANCUDOS (Perturbación de antenas)";
             } else if (mode === 'auto_patrol') {
-                numEl.textContent = "PATRULLA 360°";
-                numEl.classList.add('patrol');
-                badgeEl.textContent = "🚨 PATRULLANDO EN 2° PLANO: " + getModeTitle(patrolModes[patrolIdx]).toUpperCase();
+                numEl.textContent = "PATRULLAJE TOTAL";
+                badgeEl.textContent = "🚨 ROTACIÓN CONTINUA EN 2° PLANO: " + getModeTitle(patrolModes[patrolIdx]).toUpperCase();
             }
 
             if (isPlaying) {
@@ -880,15 +815,7 @@
 
             for (let i = 0; i < 32; i++) {
                 const barHeight = (dataArray[i * 2] / 255) * canvas.height;
-                let barColor = '#38bdf8';
-                if (currentMode === 'real_alarm') barColor = '#f43f5e';
-                else if (currentMode === 'rodent_chaos') barColor = '#ea580c';
-                else if (currentMode === 'insect_pulse') barColor = '#84cc16';
-                else if (currentMode.startsWith('cat')) barColor = '#ec4899';
-                else if (currentMode.startsWith('dog')) barColor = '#f59e0b';
-                else if (currentMode === 'auto_patrol') barColor = '#ef4444';
-
-                ctx.fillStyle = barColor;
+                ctx.fillStyle = '#ef4444';
                 ctx.fillRect(x, canvas.height - barHeight, barWidth - 2, barHeight);
                 x += barWidth;
             }
@@ -898,7 +825,6 @@
 
         function applySoundForMode(mode) {
             if (timerLoop) { clearInterval(timerLoop); timerLoop = null; }
-            if (antiAdaptTimer) { clearInterval(antiAdaptTimer); antiAdaptTimer = null; }
 
             const targetMode = (mode === 'auto_patrol') ? patrolModes[patrolIdx] : mode;
             updateMonitorDisplay(mode);
@@ -906,62 +832,53 @@
             if (osc1) { try { osc1.stop(); osc1.disconnect(); } catch(e){} osc1 = null; }
             if (osc2) { try { osc2.stop(); osc2.disconnect(); } catch(e){} osc2 = null; }
 
-            if (targetMode === 'real_alarm') {
-                // DOBLE ONDA DISONANTE (Batimiento Acústico para Bluetooth 95dB+)
+            if (targetMode === 'military_shock') {
+                // DOBLE ONDA DIENTE DE SIERRA + CUADRADA CON MODULACIÓN RÁPIDA 12Hz
                 osc1 = audioCtx.createOscillator();
                 osc2 = audioCtx.createOscillator();
                 osc1.type = 'sawtooth';
                 osc2.type = 'square';
 
                 osc1.frequency.setValueAtTime(2800, audioCtx.currentTime);
-                osc2.frequency.setValueAtTime(3250, audioCtx.currentTime); // Desfase disonante
+                osc2.frequency.setValueAtTime(3600, audioCtx.currentTime);
 
-                osc1.connect(gainNode);
-                osc2.connect(gainNode);
+                osc1.connect(shaper);
+                osc2.connect(shaper);
                 osc1.start();
                 osc2.start();
 
-                let high = false;
+                let step = 0;
+                const freqSteps = [2600, 3400, 4200, 4800, 3100, 4600, 2900, 4400];
                 timerLoop = setInterval(() => {
                     if (!osc1 || !osc2 || !audioCtx) return;
-                    high = !high;
-                    osc1.frequency.setValueAtTime(high ? 3400 : 2600, audioCtx.currentTime);
-                    osc2.frequency.setValueAtTime(high ? 3950 : 3100, audioCtx.currentTime);
-                }, 140);
+                    step = (step + 1) % freqSteps.length;
+                    const f1 = freqSteps[step];
+                    const f2 = f1 * 1.25;
+                    osc1.frequency.setValueAtTime(f1, audioCtx.currentTime);
+                    osc2.frequency.setValueAtTime(f2, audioCtx.currentTime);
+                }, 85); // 12 Hz modulación destructiva
 
-            } else if (targetMode === 'rodent_chaos') {
+            } else if (targetMode === 'ultrasonic_overload') {
                 osc1 = audioCtx.createOscillator();
+                osc2 = audioCtx.createOscillator();
                 osc1.type = 'sine';
-                osc1.frequency.setValueAtTime(23000, audioCtx.currentTime);
-                osc1.connect(gainNode);
+                osc2.type = 'sawtooth';
+
+                osc1.frequency.setValueAtTime(22500, audioCtx.currentTime);
+                osc2.frequency.setValueAtTime(24500, audioCtx.currentTime);
+
+                osc1.connect(shaper);
+                osc2.connect(shaper);
                 osc1.start();
+                osc2.start();
 
-                antiAdaptTimer = setInterval(() => {
-                    if (!osc1 || !audioCtx) return;
-                    const r = 22000 + Math.random() * 2500;
-                    osc1.frequency.setValueAtTime(r, audioCtx.currentTime);
-                }, 800);
-
-            } else if (targetMode === 'insect_pulse') {
-                osc1 = audioCtx.createOscillator();
-                osc1.type = 'sine';
-                osc1.frequency.setValueAtTime(19500, audioCtx.currentTime);
-                osc1.connect(gainNode);
-                osc1.start();
-
-                let high = false;
                 timerLoop = setInterval(() => {
-                    if (!osc1 || !audioCtx) return;
-                    high = !high;
-                    osc1.frequency.setValueAtTime(high ? 19800 : 19200, audioCtx.currentTime);
-                }, 100);
-
-            } else if (targetMode === 'mosquito_silent') {
-                osc1 = audioCtx.createOscillator();
-                osc1.type = 'sine';
-                osc1.frequency.setValueAtTime(20800, audioCtx.currentTime);
-                osc1.connect(gainNode);
-                osc1.start();
+                    if (!osc1 || !osc2 || !audioCtx) return;
+                    const rf1 = 21800 + Math.random() * 2600;
+                    const rf2 = 22200 + Math.random() * 2600;
+                    osc1.frequency.setValueAtTime(rf1, audioCtx.currentTime);
+                    osc2.frequency.setValueAtTime(rf2, audioCtx.currentTime);
+                }, 200);
 
             } else if (targetMode === 'cat_fight') {
                 osc1 = audioCtx.createOscillator();
@@ -970,16 +887,17 @@
                 osc1.connect(gainNode);
                 osc1.start();
 
-                antiAdaptTimer = setInterval(() => {
-                    if (!osc1 || !audioCtx) return;
-                    const r = 22200 + Math.random() * 1200;
-                    osc1.frequency.setValueAtTime(r, audioCtx.currentTime);
-                }, 1200);
-
             } else if (targetMode === 'dog_silent') {
                 osc1 = audioCtx.createOscillator();
                 osc1.type = 'sine';
                 osc1.frequency.setValueAtTime(22000, audioCtx.currentTime);
+                osc1.connect(gainNode);
+                osc1.start();
+
+            } else if (targetMode === 'mosquito_silent') {
+                osc1 = audioCtx.createOscillator();
+                osc1.type = 'sine';
+                osc1.frequency.setValueAtTime(20800, audioCtx.currentTime);
                 osc1.connect(gainNode);
                 osc1.start();
             }
@@ -994,13 +912,18 @@
             gainNode.gain.setValueAtTime(0.0001, audioCtx.currentTime);
             gainNode.gain.exponentialRampToValueAtTime(Math.max(0.001, safeGain), audioCtx.currentTime + 0.05);
 
-            // Compresor Dinámico Profesional para exprimir los Decibeles del Parlante Bluetooth sin romper el audio
+            // WaveShaper para densificar armónicos y llevar el RMS al 100%
+            shaper = audioCtx.createWaveShaper();
+            shaper.curve = makeDistortionCurve(outputMode === 'bluetooth' ? 30 : 15);
+            shaper.oversample = '4x';
+            shaper.connect(gainNode);
+
             compressor = audioCtx.createDynamicsCompressor();
-            compressor.threshold.setValueAtTime(outputMode === 'bluetooth' ? -3 : -6, audioCtx.currentTime);
-            compressor.knee.setValueAtTime(30, audioCtx.currentTime);
-            compressor.ratio.setValueAtTime(16, audioCtx.currentTime);
-            compressor.attack.setValueAtTime(0.002, audioCtx.currentTime);
-            compressor.release.setValueAtTime(0.15, audioCtx.currentTime);
+            compressor.threshold.setValueAtTime(outputMode === 'bluetooth' ? -2 : -6, audioCtx.currentTime);
+            compressor.knee.setValueAtTime(40, audioCtx.currentTime);
+            compressor.ratio.setValueAtTime(20, audioCtx.currentTime);
+            compressor.attack.setValueAtTime(0.001, audioCtx.currentTime);
+            compressor.release.setValueAtTime(0.1, audioCtx.currentTime);
 
             analyser = audioCtx.createAnalyser();
             analyser.fftSize = 128;
@@ -1036,7 +959,6 @@
 
         function stopSound() {
             if (timerLoop) { clearInterval(timerLoop); timerLoop = null; }
-            if (antiAdaptTimer) { clearInterval(antiAdaptTimer); antiAdaptTimer = null; }
             if (patrolTimer) { clearInterval(patrolTimer); patrolTimer = null; }
             if (animId) { cancelAnimationFrame(animId); animId = null; }
 
@@ -1075,18 +997,18 @@
             if (!isPlaying) {
                 startSound();
                 isPlaying = true;
-                btn.textContent = "⏹ DETENER ESCUDO / DISUASIÓN";
+                btn.textContent = "⏹ DETENER ATURDIMIENTO";
                 btn.classList.add('stop');
                 dot.classList.add('active');
-                statusTxt.textContent = "EMITIENDO A MÁXIMA POTENCIA (SEGUNDO PLANO ACTIVO)";
-                statusTxt.style.color = "#22c55e";
+                statusTxt.textContent = "EMITIENDO ATURDIMIENTO A MÁXIMA PRESIÓN SÓNICA";
+                statusTxt.style.color = "#ef4444";
             } else {
                 stopSound();
                 isPlaying = false;
-                btn.textContent = "▶ ACTIVAR ESCUDO AHORA";
+                btn.textContent = "💥 ACTIVAR ATURDIMIENTO AHORA";
                 btn.classList.remove('stop');
                 dot.classList.remove('active');
-                statusTxt.textContent = "PARLANTES EN ESPERA (TOCA ACTIVAR)";
+                statusTxt.textContent = "LISTO PARA ACTIVAR (MÁXIMO PODER)";
                 statusTxt.style.color = "#94a3b8";
             }
         }
