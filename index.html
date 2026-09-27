@@ -11,7 +11,7 @@
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" href="icon-192.png">
     <link rel="apple-touch-icon" href="icon-192.png">
-    <title>Escudo Sónico: Repelente Multiespecie 100% Offline</title>
+    <title>Escudo Sónico: Roedores, Plagas y Anti-Acostumbramiento</title>
     <style>
         * {
             box-sizing: border-box;
@@ -111,17 +111,22 @@
             display: inline-flex;
             align-items: center;
             gap: 4px;
-            font-size: 10.5px;
+            font-size: 10px;
             font-weight: 800;
             letter-spacing: 0.5px;
-            padding: 4px 10px;
+            padding: 4px 9px;
             border-radius: 9999px;
             text-transform: uppercase;
         }
-        .badge-silent {
-            background: rgba(16, 185, 129, 0.15);
-            color: #34d399;
-            border: 1px solid rgba(16, 185, 129, 0.4);
+        .badge-anti-adapt {
+            background: rgba(245, 158, 11, 0.2);
+            color: #fbbf24;
+            border: 1px solid rgba(245, 158, 11, 0.5);
+            animation: pulse-badge 1.8s infinite;
+        }
+        @keyframes pulse-badge {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
         }
         .badge-bg {
             background: rgba(168, 85, 247, 0.15);
@@ -182,13 +187,14 @@
             50% { opacity: 0.4; }
         }
         .freq-num {
-            font-size: 33px;
+            font-size: 32px;
             font-weight: 900;
             color: #38bdf8;
             letter-spacing: 1px;
             margin: 2px 0;
             transition: color 0.3s ease;
         }
+        .freq-num.rat { color: #f97316; }
         .freq-num.dog { color: #f59e0b; }
         .freq-num.cat { color: #ec4899; }
         .freq-num.snake { color: #10b981; }
@@ -258,6 +264,11 @@
             border-color: #38bdf8;
             box-shadow: 0 0 12px rgba(56, 189, 248, 0.35);
         }
+        button.btn-mode.active.rat {
+            background: linear-gradient(135deg, #ea580c, #c2410c);
+            border-color: #fb923c;
+            box-shadow: 0 0 12px rgba(234, 88, 12, 0.4);
+        }
         button.btn-mode.active.dog {
             background: linear-gradient(135deg, #d97706, #b45309);
             border-color: #f59e0b;
@@ -272,11 +283,6 @@
             background: linear-gradient(135deg, #059669, #047857);
             border-color: #34d399;
             box-shadow: 0 0 12px rgba(16, 185, 129, 0.35);
-        }
-        button.btn-mode.active.lizard {
-            background: linear-gradient(135deg, #65a30d, #4d7c0f);
-            border-color: #a3e635;
-            box-shadow: 0 0 12px rgba(132, 204, 22, 0.35);
         }
         button.btn-mode.active.bat {
             background: linear-gradient(135deg, #7e22ce, #6b21a8);
@@ -339,7 +345,6 @@
             box-shadow: 0 8px 20px rgba(220, 38, 38, 0.35);
         }
 
-        /* Sección de Métodos Reales y Efectivos */
         .real-tips-box {
             margin-top: 14px;
             background: rgba(15, 23, 42, 0.85);
@@ -352,7 +357,7 @@
         }
         .real-tips-box h3 {
             margin: 0 0 8px 0;
-            font-size: 13px;
+            font-size: 12.5px;
             color: #38bdf8;
             display: flex;
             align-items: center;
@@ -432,62 +437,72 @@
         </div>
 
         <div class="version-row">
-            <span>✨ VERSIÓN 6.0 (POTENCIA REAL Y SEGUNDO PLANO)</span>
+            <span>✨ VERSIÓN 7.0 (ROEDORES + ANTI-ACOSTUMBRAMIENTO)</span>
             <button class="btn-reload" onclick="forzarActualizacion()">🔄 Limpiar Caché</button>
         </div>
 
         <div class="header-badges">
-            <div class="badge badge-bg">🎧 SEGUNDO PLANO (PANTALLA APAGADA)</div>
-            <div class="badge badge-net" id="netBadge">📶 100% OFFLINE</div>
+            <div class="badge badge-anti-adapt">⚡ SALTO ALEATORIO (CERO ACOSTUMBRAMIENTO)</div>
+            <div class="badge badge-bg">🎧 2° PLANO</div>
+            <div class="badge badge-net" id="netBadge">📶 OFFLINE</div>
         </div>
 
-        <h1>Escudo Sónico y Disuasión</h1>
-        <p class="subtitle">Ondas ultrasónicas y alarma disuasiva para tu hogar. <strong>Funciona en segundo plano con pantalla apagada</strong>.</p>
+        <h1>Escudo Sónico Avanzado</h1>
+        <p class="subtitle">Emisión ultrasónica caótica de alta frecuencia. <strong>Salto continuo para que ningún animal se acostumbre</strong>.</p>
 
         <div class="monitor">
             <div class="monitor-status">
                 <span id="dot" class="dot"></span>
                 <span id="statusTxt">PARLANTES EN ESPERA (TOCA ACTIVAR)</span>
             </div>
-            <div class="freq-num alarm" id="freqNum">2,800 Hz (Choque)</div>
-            <div class="freq-badge" id="freqBadge">🚨 ALARMA DISUASIVA DE CHOQUE (Sonido audible fuerte que SÍ asusta animales)</div>
+            <div class="freq-num rat" id="freqNum">23,400 Hz ➔ Salto</div>
+            <div class="freq-badge" id="freqBadge">🐁 DESALOJO ROEDORES (Ratas, ratones de campo y parcelas)</div>
             <canvas id="waveCanvas"></canvas>
         </div>
 
-        <!-- MODO CHOQUE ACÚSTICO REAL AUDIBLE (EL QUE SÍ ASUSTA ANIMALES POR CELULAR) -->
-        <div class="category-title" style="color: #fb7185;">💥 DISUASIÓN REAL AUDIBLE (SONIDO POTENTE DE SOBRESALTO):</div>
+        <!-- MODO ROEDORES Y PARCELAS (NUEVO) -->
+        <div class="category-title" style="color: #fb923c;">🐁 ROEDORES Y PARCELAS (RATAS, RATONES Y PLAGAS DE CAMPO):</div>
         <div class="btn-grid" style="grid-template-columns: 1fr;">
-            <button class="btn-mode active alarm" onclick="setMode('real_alarm', this)">
-                <span class="t">🚨 Alarma de Choque / Sirena Disuasiva (2,800 Hz Audible)</span>
-                <span class="d">Sonido penetrante de alta potencia que el parlante del celular SÍ puede reproducir a más de 85 decibeles. Activa el reflejo de susto inmediato en perros y gatos para que huyan.</span>
+            <button class="btn-mode active rat" onclick="setMode('rodent_chaos', this)">
+                <span class="t">🐁 Desalojo Roedores y Ratas (22 - 24.5 kHz Caótico)</span>
+                <span class="d">Interfiere en la comunicación ultrasónica de ratas y ratones. Salta continuamente para que no puedan anidar ni acostumbrarse.</span>
             </button>
         </div>
 
-        <!-- PATRULLAJE 360 SILENCIOSO -->
-        <div class="category-title">🔇 MODOS ULTRASÓNICOS (SILENCIOSOS PARA TI):</div>
+        <!-- DISUASIÓN AUDIBLE -->
+        <div class="category-title" style="color: #fb7185;">💥 ALARMA DE CHOQUE AUDIBLE (SUSTO INMEDIATO):</div>
+        <div class="btn-grid" style="grid-template-columns: 1fr;">
+            <button class="btn-mode alarm" onclick="setMode('real_alarm', this)">
+                <span class="t">🚨 Sirena Disuasiva de Choque (2,800 Hz Real 85dB)</span>
+                <span class="d">Sonido audible fuerte que activa el reflejo de susto en perros y gatos.</span>
+            </button>
+        </div>
+
+        <!-- MODOS ULTRASÓNICOS INAUDIBLES -->
+        <div class="category-title">🔇 MODOS ULTRASÓNICOS (CON ANTI-ACOSTUMBRAMIENTO):</div>
         <div class="btn-grid" style="grid-template-columns: 1fr;">
             <button class="btn-mode patrol" onclick="setMode('auto_patrol', this)">
-                <span class="t">🚨 Patrullaje 360° Ultrasónico (Segundo Plano)</span>
-                <span class="d">Ciclo continuo cada 12s inaudible para humanos.</span>
+                <span class="t">🚨 Patrullaje 360° Total (Ciclo Automático Caótico)</span>
+                <span class="d">Alterna entre roedores, gatos, perros, zancudos y murciélagos en 2° plano.</span>
             </button>
         </div>
 
         <div class="btn-grid">
             <button class="btn-mode cat" onclick="setMode('cat_fight', this)">
                 <span class="t">🐱 Gatos Techos (22.5 kHz)</span>
-                <span class="d">Ultrasonido saturador de oído felino.</span>
+                <span class="d">Disuelve peleas nocturnas.</span>
             </button>
             <button class="btn-mode dog" onclick="setMode('dog_silent', this)">
                 <span class="t">🐕 Perros Silbato (22.0 kHz)</span>
-                <span class="d">Silbato canino ultrasónico.</span>
+                <span class="d">Freno ultrasónico canino.</span>
             </button>
             <button class="btn-mode" onclick="setMode('mosquito_silent', this)">
                 <span class="t">🦟 Zancudos (20.8 kHz)</span>
-                <span class="d">Perturbación de antenas sensoriales.</span>
+                <span class="d">Perturbación de antenas.</span>
             </button>
             <button class="btn-mode bat" onclick="setMode('bat_jammer', this)">
                 <span class="t">🦇 Murciélagos (23.5 kHz)</span>
-                <span class="d">Inhibidor de radar de ecolocalización.</span>
+                <span class="d">Inhibidor de radar.</span>
             </button>
         </div>
 
@@ -502,20 +517,16 @@
 
         <button id="toggleBtn" class="btn-main" onclick="togglePlay()">▶ ACTIVAR ESCUDO AHORA</button>
 
-        <!-- GUÍA REAL Y EFECTIVA PARA ELIMINAR CADA PLAGA -->
         <div class="real-tips-box">
-            <h3>💡 Métodos 100% Reales y Efectivos para tu Casa:</h3>
+            <h3>📢 ¿Cómo darle Máxima Potencia para Parcelas y Patios?</h3>
             <div class="tip-item">
-                <strong>🦟 Zancudos:</strong> Ningún sonido mata zancudos (se guían por calor y CO2). Usa espirales repelentes, pastillas termo-evaporables o mosquiteros. Vacía todo balde con agua estancada.
+                <strong>🔊 El Secreto del Parlante Bluetooth:</strong> Los celulares tienen una bocina pequeña de 1W. Si tienes una <strong>parcela, patio grande o chacra</strong>, vincula tu celular a un <strong>parlante Bluetooth o bocina portátil de 10W/20W</strong> colocado en altura. ¡El sonido alcanzará más de 30 a 50 metros!
             </div>
             <div class="tip-item">
-                <strong>🐱 Gatos en Techos:</strong> Coloca botellas transparentes llenas de agua en el techo (el reflejo los asusta) o rocía vinagre y cáscaras de limón/naranja en las vigas (odian los cítricos).
+                <strong>⚡ ¿Por qué ya no se acostumbran?</strong> Esta versión 7.0 cambia de frecuencia cada segundo con pulsos impredecibles. Los roedores y animales no pueden habituarse porque su cerebro no detecta un patrón fijo.
             </div>
             <div class="tip-item">
-                <strong>🐍 Serpientes en Rocas:</strong> No tienen orejas (no oyen sonidos aéreos). Esparce <strong>azufre en polvo o cal</strong> alrededor de las rocas y grietas: el olor y la irritación las hace desalojar de inmediato.
-            </div>
-            <div class="tip-item">
-                <strong>🦎 Lagartijas en Plantas:</strong> No dañan plantas (se comen las plagas). Si quieres que no entren, coloca <strong>cáscaras de huevo partidas</strong> en las macetas (creen que hay depredadores y huyen) o spray de agua con ajo.
+                <strong>🐁 Para Roedores en Parcelas:</strong> El ultrasonido continuo en un parlante exterior evita que hagan madrigueras. Complementa con trampas mecánicas de resorte con cebo de mantequilla de maní o avena en las esquinas de paso.
             </div>
         </div>
     </div>
@@ -534,7 +545,6 @@
     </div>
 
     <script>
-        // PWA Service Worker
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./sw.js')
@@ -543,7 +553,6 @@
             });
         }
 
-        // Ocultar banner si ya está instalada
         function checkInstalledStatus() {
             const isStandalone = window.matchMedia('(display-mode: standalone)').matches 
                               || window.navigator.standalone 
@@ -567,13 +576,12 @@
             dismissInstallBanner();
         });
 
-        // Detección de conexión Offline/Online
         function updateNetStatus() {
             const b = document.getElementById('netBadge');
             if (navigator.onLine) {
-                b.textContent = "📶 100% OFFLINE";
+                b.textContent = "📶 OFFLINE";
             } else {
-                b.textContent = "✈️ SIN INTERNET (ACTIVO)";
+                b.textContent = "✈️ SIN INTERNET";
             }
         }
         window.addEventListener('online', updateNetStatus);
@@ -616,24 +624,26 @@
             window.location.reload(true);
         }
 
-        // Audio Engine
+        // Audio Engine con Algoritmo Anti-Acostumbramiento
         let audioCtx = null;
         let isPlaying = false;
-        let currentMode = 'real_alarm'; // Modo alarma real por defecto
+        let currentMode = 'rodent_chaos'; // Por defecto Roedores Caótico
         let osc = null;
         let gainNode = null;
         let timerLoop = null;
         let patrolTimer = null;
+        let antiAdaptTimer = null;
         let lastPatrolTime = Date.now();
         let analyser = null;
         let animId = null;
         let wakeLock = null;
 
-        const patrolModes = ['cat_fight', 'dog_silent', 'mosquito_silent', 'bat_jammer'];
+        const patrolModes = ['rodent_chaos', 'cat_fight', 'dog_silent', 'mosquito_silent', 'bat_jammer'];
         let patrolIdx = 0;
 
         function getModeTitle(mode) {
-            if (mode === 'real_alarm') return "Alarma de Choque";
+            if (mode === 'rodent_chaos') return "Roedores y Ratas";
+            if (mode === 'real_alarm') return "Sirena de Choque";
             if (mode === 'cat_fight') return "Gatos (Peleas)";
             if (mode === 'dog_silent') return "Silbato Canino";
             if (mode === 'mosquito_silent') return "Anti-Zancudos";
@@ -646,8 +656,8 @@
             if ('mediaSession' in navigator) {
                 navigator.mediaSession.metadata = new MediaMetadata({
                     title: 'Escudo Sónico: ' + modeName,
-                    artist: 'Disuasión Activa en Segundo Plano',
-                    album: '100% Offline Activo',
+                    artist: 'Anti-Acostumbramiento Activo',
+                    album: '100% Offline en Segundo Plano',
                     artwork: [
                         { src: 'icon-192.png', sizes: '192x192', type: 'image/png' },
                         { src: 'icon-512.png', sizes: '512x512', type: 'image/png' }
@@ -681,10 +691,11 @@
         }
 
         function setMode(mode, btn) {
-            document.querySelectorAll('.btn-mode').forEach(b => b.classList.remove('active', 'dog', 'cat', 'snake', 'lizard', 'bat', 'patrol', 'alarm'));
+            document.querySelectorAll('.btn-mode').forEach(b => b.classList.remove('active', 'dog', 'cat', 'rat', 'bat', 'patrol', 'alarm'));
             currentMode = mode;
             if (btn) {
                 btn.classList.add('active');
+                if (mode === 'rodent_chaos') btn.classList.add('rat');
                 if (mode === 'real_alarm') btn.classList.add('alarm');
                 if (mode.startsWith('dog')) btn.classList.add('dog');
                 if (mode.startsWith('cat')) btn.classList.add('cat');
@@ -705,25 +716,29 @@
             const badgeEl = document.getElementById('freqBadge');
             numEl.className = 'freq-num';
 
-            if (mode === 'real_alarm') {
+            if (mode === 'rodent_chaos') {
+                numEl.textContent = "22 - 24.5 kHz (Caótico)";
+                numEl.classList.add('rat');
+                badgeEl.textContent = "🐁 DESALOJO ROEDORES (Salto impredecible: ratas, ratones y parcelas)";
+            } else if (mode === 'real_alarm') {
                 numEl.textContent = "2,800 Hz (Choque)";
                 numEl.classList.add('alarm');
                 badgeEl.textContent = "🚨 ALARMA DISUASIVA DE CHOQUE (Sonido audible fuerte que SÍ asusta animales)";
             } else if (mode === 'cat_fight') {
-                numEl.textContent = "22,500 Hz";
+                numEl.textContent = "22,500 Hz (Anti-Adapt)";
                 numEl.classList.add('cat');
-                badgeEl.textContent = "🐱 GATOS (Ultrasonido inaudible personas)";
+                badgeEl.textContent = "🐱 GATOS (Peleas y techos con salto de frecuencia)";
             } else if (mode === 'dog_silent') {
-                numEl.textContent = "22,000 Hz";
+                numEl.textContent = "22,000 Hz (Anti-Adapt)";
                 numEl.classList.add('dog');
-                badgeEl.textContent = "🐕 PERROS (Silbato inaudible personas)";
+                badgeEl.textContent = "🐕 PERROS (Silbato inaudible personas con micro-pulsos)";
             } else if (mode === 'mosquito_silent') {
-                numEl.textContent = "20,800 Hz";
-                badgeEl.textContent = "🦟 ZANCUDOS (Inaudible personas)";
+                numEl.textContent = "20,800 Hz (Anti-Adapt)";
+                badgeEl.textContent = "🦟 ZANCUDOS (Inaudible personas, perturba antenas sin habituación)";
             } else if (mode === 'bat_jammer') {
                 numEl.textContent = "23,500 Hz";
                 numEl.classList.add('bat');
-                badgeEl.textContent = "🦇 MURCIÉLAGOS (Inaudible personas)";
+                badgeEl.textContent = "🦇 MURCIÉLAGOS (Inaudible, bloquea radar de eco)";
             } else if (mode === 'auto_patrol') {
                 numEl.textContent = "PATRULLA 360°";
                 numEl.classList.add('patrol');
@@ -765,7 +780,8 @@
             for (let i = 0; i < 32; i++) {
                 const barHeight = (dataArray[i * 2] / 255) * canvas.height;
                 let barColor = '#38bdf8';
-                if (currentMode === 'real_alarm') barColor = '#f43f5e';
+                if (currentMode === 'rodent_chaos') barColor = '#ea580c';
+                else if (currentMode === 'real_alarm') barColor = '#f43f5e';
                 else if (currentMode.startsWith('cat')) barColor = '#ec4899';
                 else if (currentMode.startsWith('dog')) barColor = '#f59e0b';
                 else if (currentMode.startsWith('bat')) barColor = '#c084fc';
@@ -781,6 +797,7 @@
 
         function applySoundForMode(mode) {
             if (timerLoop) { clearInterval(timerLoop); timerLoop = null; }
+            if (antiAdaptTimer) { clearInterval(antiAdaptTimer); antiAdaptTimer = null; }
 
             const targetMode = (mode === 'auto_patrol') ? patrolModes[patrolIdx] : mode;
             updateMonitorDisplay(mode);
@@ -792,8 +809,24 @@
 
             osc = audioCtx.createOscillator();
 
-            if (targetMode === 'real_alarm') {
-                // Sirena / Bocina pulsante de choque de 2,200 a 3,400 Hz que SÍ asusta animales
+            if (targetMode === 'rodent_chaos') {
+                // Frecuencias ultrasónicas caóticas de 22,000 a 24,500 Hz con saltos anti-habituación
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(23000, audioCtx.currentTime);
+                osc.connect(gainNode);
+                osc.start();
+
+                // Salto aleatorio cada 800ms para que las ratas/roedores no se acostumbren
+                antiAdaptTimer = setInterval(() => {
+                    if (!osc || !audioCtx) return;
+                    const randomFreq = 22000 + Math.random() * 2500;
+                    osc.frequency.setValueAtTime(randomFreq, audioCtx.currentTime);
+                    if (currentMode === 'rodent_chaos') {
+                        document.getElementById('freqNum').textContent = Math.round(randomFreq).toLocaleString() + " Hz (Salto)";
+                    }
+                }, 800);
+
+            } else if (targetMode === 'real_alarm') {
                 osc.type = 'sawtooth';
                 osc.frequency.setValueAtTime(2400, audioCtx.currentTime);
                 osc.connect(gainNode);
@@ -812,17 +845,35 @@
                 osc.connect(gainNode);
                 osc.start();
 
+                antiAdaptTimer = setInterval(() => {
+                    if (!osc || !audioCtx) return;
+                    const r = 22200 + Math.random() * 1200;
+                    osc.frequency.setValueAtTime(r, audioCtx.currentTime);
+                }, 1200);
+
             } else if (targetMode === 'dog_silent') {
                 osc.type = 'sine';
                 osc.frequency.setValueAtTime(22000, audioCtx.currentTime);
                 osc.connect(gainNode);
                 osc.start();
 
+                antiAdaptTimer = setInterval(() => {
+                    if (!osc || !audioCtx) return;
+                    const r = 21500 + Math.random() * 1000;
+                    osc.frequency.setValueAtTime(r, audioCtx.currentTime);
+                }, 1000);
+
             } else if (targetMode === 'mosquito_silent') {
                 osc.type = 'sine';
                 osc.frequency.setValueAtTime(20800, audioCtx.currentTime);
                 osc.connect(gainNode);
                 osc.start();
+
+                antiAdaptTimer = setInterval(() => {
+                    if (!osc || !audioCtx) return;
+                    const r = 20600 + Math.random() * 600;
+                    osc.frequency.setValueAtTime(r, audioCtx.currentTime);
+                }, 1500);
 
             } else if (targetMode === 'bat_jammer') {
                 osc.type = 'sine';
@@ -873,6 +924,7 @@
 
         function stopSound() {
             if (timerLoop) { clearInterval(timerLoop); timerLoop = null; }
+            if (antiAdaptTimer) { clearInterval(antiAdaptTimer); antiAdaptTimer = null; }
             if (patrolTimer) { clearInterval(patrolTimer); patrolTimer = null; }
             if (animId) { cancelAnimationFrame(animId); animId = null; }
 
@@ -917,10 +969,10 @@
             if (!isPlaying) {
                 startSound();
                 isPlaying = true;
-                btn.textContent = "⏹ DETENER ESCUDO / ALARMA";
+                btn.textContent = "⏹ DETENER ESCUDO / DISUASIÓN";
                 btn.classList.add('stop');
                 dot.classList.add('active');
-                statusTxt.textContent = "DISUASIÓN EMITIENDO EN SEGUNDO PLANO";
+                statusTxt.textContent = "EMITIENDO EN SEGUNDO PLANO CON ANTI-ACOSTUMBRAMIENTO";
                 statusTxt.style.color = "#22c55e";
             } else {
                 stopSound();
