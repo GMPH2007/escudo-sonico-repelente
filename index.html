@@ -11,7 +11,7 @@
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" href="icon-192.png">
     <link rel="apple-touch-icon" href="icon-192.png">
-    <title>Escudo Sónico: App 100% Offline y Segundo Plano</title>
+    <title>Escudo Sónico: Repelente Multiespecie 100% Offline</title>
     <style>
         * {
             box-sizing: border-box;
@@ -39,7 +39,6 @@
             box-shadow: 0 25px 60px -10px rgba(0, 0, 0, 0.9), 0 0 35px rgba(56, 189, 248, 0.12);
             text-align: center;
         }
-        /* Contenedor del banner de instalación (Se oculta 100% cuando la app ya está instalada) */
         #installContainer {
             display: flex;
             align-items: center;
@@ -63,10 +62,6 @@
             gap: 8px;
             box-shadow: 0 0 18px rgba(2, 132, 199, 0.45);
             animation: pulse-border 2s infinite;
-            transition: all 0.2s ease;
-        }
-        .install-banner-btn:active {
-            transform: scale(0.98);
         }
         .btn-dismiss-install {
             background: #1e293b;
@@ -200,6 +195,7 @@
         .freq-num.lizard { color: #84cc16; }
         .freq-num.bat { color: #c084fc; }
         .freq-num.patrol { color: #ef4444; }
+        .freq-num.alarm { color: #f43f5e; }
         .freq-badge {
             font-size: 11px;
             color: #22c55e;
@@ -292,6 +288,11 @@
             border-color: #f87171;
             box-shadow: 0 0 12px rgba(239, 68, 68, 0.4);
         }
+        button.btn-mode.active.alarm {
+            background: linear-gradient(135deg, #e11d48, #be123c);
+            border-color: #fb7185;
+            box-shadow: 0 0 15px rgba(244, 63, 94, 0.5);
+        }
         .vol-box {
             background: rgba(15, 23, 42, 0.7);
             border-radius: 12px;
@@ -337,6 +338,36 @@
             background: linear-gradient(135deg, #dc2626, #b91c1c);
             box-shadow: 0 8px 20px rgba(220, 38, 38, 0.35);
         }
+
+        /* Sección de Métodos Reales y Efectivos */
+        .real-tips-box {
+            margin-top: 14px;
+            background: rgba(15, 23, 42, 0.85);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            border-radius: 14px;
+            padding: 12px;
+            text-align: left;
+            font-size: 11.5px;
+            color: #cbd5e1;
+        }
+        .real-tips-box h3 {
+            margin: 0 0 8px 0;
+            font-size: 13px;
+            color: #38bdf8;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .tip-item {
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            line-height: 1.4;
+        }
+        .tip-item strong {
+            color: #34d399;
+        }
+
         .modal-overlay {
             display: none;
             position: fixed;
@@ -386,13 +417,11 @@
     </style>
 </head>
 <body>
-    <!-- Audio de soporte silencioso para mantener vivo el proceso en segundo plano de Android -->
     <audio id="bgKeepAlive" loop playsinline preload="auto">
         <source src="data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA" type="audio/wav">
     </audio>
 
     <div class="card">
-        <!-- Contenedor de Instalación: Se oculta automáticamente cuando la app ya está instalada -->
         <div id="installContainer">
             <button class="install-banner-btn" onclick="triggerInstallApp()">
                 📲 <span>INSTALAR APP EN TU CELULAR</span>
@@ -403,100 +432,92 @@
         </div>
 
         <div class="version-row">
-            <span>✨ VERSIÓN 5.0 (SEGUNDO PLANO ACTIVO)</span>
+            <span>✨ VERSIÓN 6.0 (POTENCIA REAL Y SEGUNDO PLANO)</span>
             <button class="btn-reload" onclick="forzarActualizacion()">🔄 Limpiar Caché</button>
         </div>
 
         <div class="header-badges">
-            <div class="badge badge-silent">🔇 0% RUIDO HUMANO</div>
-            <div class="badge badge-bg">🎧 SEGUNDO PLANO / BLOQUEO</div>
+            <div class="badge badge-bg">🎧 SEGUNDO PLANO (PANTALLA APAGADA)</div>
             <div class="badge badge-net" id="netBadge">📶 100% OFFLINE</div>
         </div>
 
-        <h1>Escudo Sónico Inaudible</h1>
-        <p class="subtitle">Emisión ultrasónica pura de fondo. <strong>Funciona en segundo plano con pantalla apagada o bloqueada</strong>.</p>
+        <h1>Escudo Sónico y Disuasión</h1>
+        <p class="subtitle">Ondas ultrasónicas y alarma disuasiva para tu hogar. <strong>Funciona en segundo plano con pantalla apagada</strong>.</p>
 
         <div class="monitor">
             <div class="monitor-status">
                 <span id="dot" class="dot"></span>
                 <span id="statusTxt">PARLANTES EN ESPERA (TOCA ACTIVAR)</span>
             </div>
-            <div class="freq-num patrol" id="freqNum">PATRULLA 360°</div>
-            <div class="freq-badge" id="freqBadge">🚨 MODO PATRULLAJE (Recomendado para dejarlo de noche)</div>
+            <div class="freq-num alarm" id="freqNum">2,800 Hz (Choque)</div>
+            <div class="freq-badge" id="freqBadge">🚨 ALARMA DISUASIVA DE CHOQUE (Sonido audible fuerte que SÍ asusta animales)</div>
             <canvas id="waveCanvas"></canvas>
         </div>
 
-        <!-- 1. PATRULLAJE TOTAL 360 (PRIORITARIO) -->
-        <div class="category-title">🚨 MODO RECOMENDADO NOCTURNO:</div>
+        <!-- MODO CHOQUE ACÚSTICO REAL AUDIBLE (EL QUE SÍ ASUSTA ANIMALES POR CELULAR) -->
+        <div class="category-title" style="color: #fb7185;">💥 DISUASIÓN REAL AUDIBLE (SONIDO POTENTE DE SOBRESALTO):</div>
         <div class="btn-grid" style="grid-template-columns: 1fr;">
-            <button class="btn-mode active patrol" onclick="setMode('auto_patrol', this)">
-                <span class="t">🚨 MODO PATRULLAJE 360° (Ciclo Automático Segundo Plano)</span>
-                <span class="d">Va alternando automáticamente cada 12 segundos entre gatos, perros, zancudos, murciélagos, serpientes y plagas. Sigue sonando con el celular bloqueado.</span>
+            <button class="btn-mode active alarm" onclick="setMode('real_alarm', this)">
+                <span class="t">🚨 Alarma de Choque / Sirena Disuasiva (2,800 Hz Audible)</span>
+                <span class="d">Sonido penetrante de alta potencia que el parlante del celular SÍ puede reproducir a más de 85 decibeles. Activa el reflejo de susto inmediato en perros y gatos para que huyan.</span>
             </button>
         </div>
 
-        <!-- 2. GATOS (TECHOS Y PELEAS) -->
-        <div class="category-title">🐱 DEFENSA GATOS (100% INAUDIBLE HUMANOS):</div>
+        <!-- PATRULLAJE 360 SILENCIOSO -->
+        <div class="category-title">🔇 MODOS ULTRASÓNICOS (SILENCIOSOS PARA TI):</div>
+        <div class="btn-grid" style="grid-template-columns: 1fr;">
+            <button class="btn-mode patrol" onclick="setMode('auto_patrol', this)">
+                <span class="t">🚨 Patrullaje 360° Ultrasónico (Segundo Plano)</span>
+                <span class="d">Ciclo continuo cada 12s inaudible para humanos.</span>
+            </button>
+        </div>
+
         <div class="btn-grid">
             <button class="btn-mode cat" onclick="setMode('cat_fight', this)">
-                <span class="t">🐱 Desactiva-Peleas (22.5 kHz)</span>
-                <span class="d">Tú no oyes nada. Desaloja riñas y maullidos en techos.</span>
+                <span class="t">🐱 Gatos Techos (22.5 kHz)</span>
+                <span class="d">Ultrasonido saturador de oído felino.</span>
             </button>
-            <button class="btn-mode cat" onclick="setMode('cat_roof', this)">
-                <span class="t">🏠 Ahuyenta-Techos (23.2 kHz)</span>
-                <span class="d">Barrido ultrasónico inaudible para desalojar techos.</span>
-            </button>
-        </div>
-
-        <!-- 3. PERROS AGRESIVOS Y LADRIDOS -->
-        <div class="category-title">🐕 DEFENSA PERROS (SÓLO LO ESCUCHAN ELLOS):</div>
-        <div class="btn-grid">
             <button class="btn-mode dog" onclick="setMode('dog_silent', this)">
-                <span class="t">🐕 Silbato Canino (22.0 kHz)</span>
-                <span class="d">100% inaudible personas. Frena perros bravos y ataques.</span>
+                <span class="t">🐕 Perros Silbato (22.0 kHz)</span>
+                <span class="d">Silbato canino ultrasónico.</span>
             </button>
-            <button class="btn-mode dog" onclick="setMode('dog_pulse', this)">
-                <span class="t">⚡ Pulso Freno (21.5 - 23.2 kHz)</span>
-                <span class="d">Pulsos ultrasónicos rápidos para cortar ladridos.</span>
-            </button>
-        </div>
-
-        <!-- 4. ZANCUDOS Y MURCIÉLAGOS -->
-        <div class="category-title">🦟 ZANCUDOS Y 🦇 MURCIÉLAGOS:</div>
-        <div class="btn-grid">
             <button class="btn-mode" onclick="setMode('mosquito_silent', this)">
-                <span class="t">🦟 Antena Zancudo (20.8 kHz)</span>
-                <span class="d">100% inaudible humano. Aturde antenas de zancudos.</span>
+                <span class="t">🦟 Zancudos (20.8 kHz)</span>
+                <span class="d">Perturbación de antenas sensoriales.</span>
             </button>
             <button class="btn-mode bat" onclick="setMode('bat_jammer', this)">
-                <span class="t">🦇 Bloqueador Radar (23.5 kHz)</span>
-                <span class="d">Inaudible. Bloquea el vuelo de murciélagos.</span>
-            </button>
-        </div>
-
-        <!-- 5. SERPIENTES, LAGARTIJAS Y PLANTAS -->
-        <div class="category-title">🐍 SERPIENTES, 🦎 LAGARTIJAS Y 🌿 PLANTAS:</div>
-        <div class="btn-grid">
-            <button class="btn-mode snake" onclick="setMode('snake_silent', this)">
-                <span class="t">🐍 Choque Rocas (21.0 kHz)</span>
-                <span class="d">Presión de choque en grietas y piedras.</span>
-            </button>
-            <button class="btn-mode lizard" onclick="setMode('lizard_silent', this)">
-                <span class="t">🦎 Ahuyenta-Reptil (21.8 kHz)</span>
-                <span class="d">Estrés acústico para lagartijas y plagas.</span>
+                <span class="t">🦇 Murciélagos (23.5 kHz)</span>
+                <span class="d">Inhibidor de radar de ecolocalización.</span>
             </button>
         </div>
 
         <!-- Volume Slider -->
         <div class="vol-box">
             <div class="vol-label">
-                <span>Potencia de Salida (Calibrada sin saturación):</span>
+                <span>Potencia de Salida:</span>
                 <span id="volVal" class="val">100%</span>
             </div>
             <input type="range" id="volSlider" min="10" max="100" value="100" oninput="updateVol(this.value)">
         </div>
 
         <button id="toggleBtn" class="btn-main" onclick="togglePlay()">▶ ACTIVAR ESCUDO AHORA</button>
+
+        <!-- GUÍA REAL Y EFECTIVA PARA ELIMINAR CADA PLAGA -->
+        <div class="real-tips-box">
+            <h3>💡 Métodos 100% Reales y Efectivos para tu Casa:</h3>
+            <div class="tip-item">
+                <strong>🦟 Zancudos:</strong> Ningún sonido mata zancudos (se guían por calor y CO2). Usa espirales repelentes, pastillas termo-evaporables o mosquiteros. Vacía todo balde con agua estancada.
+            </div>
+            <div class="tip-item">
+                <strong>🐱 Gatos en Techos:</strong> Coloca botellas transparentes llenas de agua en el techo (el reflejo los asusta) o rocía vinagre y cáscaras de limón/naranja en las vigas (odian los cítricos).
+            </div>
+            <div class="tip-item">
+                <strong>🐍 Serpientes en Rocas:</strong> No tienen orejas (no oyen sonidos aéreos). Esparce <strong>azufre en polvo o cal</strong> alrededor de las rocas y grietas: el olor y la irritación las hace desalojar de inmediato.
+            </div>
+            <div class="tip-item">
+                <strong>🦎 Lagartijas en Plantas:</strong> No dañan plantas (se comen las plagas). Si quieres que no entren, coloca <strong>cáscaras de huevo partidas</strong> en las macetas (creen que hay depredadores y huyen) o spray de agua con ajo.
+            </div>
+        </div>
     </div>
 
     <!-- Modal Guía para Instalar -->
@@ -504,16 +525,16 @@
         <div class="modal-box">
             <h3>📲 Cómo Instalar en tu Celular</h3>
             <ol>
-                <li>Toca los <strong>tres puntitos (⋮)</strong> arriba a la derecha de tu navegador Chrome.</li>
+                <li>Toca los <strong>tres puntitos (⋮)</strong> arriba a la derecha de Chrome.</li>
                 <li>Presiona en <strong>"Instalar aplicación"</strong> o <strong>"Agregar a pantalla principal"</strong>.</li>
-                <li>¡Listo! La aplicación se instalará en tu inicio y funcionará siempre <strong>sin internet y en segundo plano</strong>.</li>
+                <li>¡Listo! Funcionará siempre sin internet y en segundo plano.</li>
             </ol>
             <button class="btn-modal-close" onclick="closeModal()">¡Entendido!</button>
         </div>
     </div>
 
     <script>
-        // PWA Service Worker Registration
+        // PWA Service Worker
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./sw.js')
@@ -522,7 +543,7 @@
             });
         }
 
-        // Ocultar banner de instalación si la app ya está instalada
+        // Ocultar banner si ya está instalada
         function checkInstalledStatus() {
             const isStandalone = window.matchMedia('(display-mode: standalone)').matches 
                               || window.navigator.standalone 
@@ -531,7 +552,7 @@
 
             const container = document.getElementById('installContainer');
             if (isStandalone && container) {
-                container.style.display = 'none'; // Quitarlo por completo de la pantalla
+                container.style.display = 'none';
             }
         }
         checkInstalledStatus();
@@ -559,7 +580,6 @@
         window.addEventListener('offline', updateNetStatus);
         updateNetStatus();
 
-        // Manejo de Instalación PWA
         let deferredPrompt = null;
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
@@ -596,10 +616,10 @@
             window.location.reload(true);
         }
 
-        // Audio Engine con soporte para Segundo Plano (Background Audio & MediaSession)
+        // Audio Engine
         let audioCtx = null;
         let isPlaying = false;
-        let currentMode = 'auto_patrol'; // Por defecto Patrullaje 360
+        let currentMode = 'real_alarm'; // Modo alarma real por defecto
         let osc = null;
         let gainNode = null;
         let timerLoop = null;
@@ -609,29 +629,25 @@
         let animId = null;
         let wakeLock = null;
 
-        const patrolModes = ['cat_fight', 'dog_silent', 'mosquito_silent', 'bat_jammer', 'snake_silent', 'lizard_silent'];
+        const patrolModes = ['cat_fight', 'dog_silent', 'mosquito_silent', 'bat_jammer'];
         let patrolIdx = 0;
 
         function getModeTitle(mode) {
+            if (mode === 'real_alarm') return "Alarma de Choque";
             if (mode === 'cat_fight') return "Gatos (Peleas)";
-            if (mode === 'cat_roof') return "Gatos (Techos)";
             if (mode === 'dog_silent') return "Silbato Canino";
-            if (mode === 'dog_pulse') return "Pulso Canino";
             if (mode === 'mosquito_silent') return "Anti-Zancudos";
             if (mode === 'bat_jammer') return "Murciélagos";
-            if (mode === 'snake_silent') return "Serpientes";
-            if (mode === 'lizard_silent') return "Lagartijas";
             if (mode === 'auto_patrol') return "Patrullaje 360°";
             return "Escudo Sónico";
         }
 
-        // Configuración de MediaSession para Segundo Plano en Android
         function updateMediaSession(modeName) {
             if ('mediaSession' in navigator) {
                 navigator.mediaSession.metadata = new MediaMetadata({
                     title: 'Escudo Sónico: ' + modeName,
-                    artist: 'Protección Ultrasónica en Segundo Plano',
-                    album: '100% Silencioso Humano (Activo)',
+                    artist: 'Disuasión Activa en Segundo Plano',
+                    album: '100% Offline Activo',
                     artwork: [
                         { src: 'icon-192.png', sizes: '192x192', type: 'image/png' },
                         { src: 'icon-512.png', sizes: '512x512', type: 'image/png' }
@@ -665,14 +681,13 @@
         }
 
         function setMode(mode, btn) {
-            document.querySelectorAll('.btn-mode').forEach(b => b.classList.remove('active', 'dog', 'cat', 'snake', 'lizard', 'bat', 'patrol'));
+            document.querySelectorAll('.btn-mode').forEach(b => b.classList.remove('active', 'dog', 'cat', 'snake', 'lizard', 'bat', 'patrol', 'alarm'));
             currentMode = mode;
             if (btn) {
                 btn.classList.add('active');
+                if (mode === 'real_alarm') btn.classList.add('alarm');
                 if (mode.startsWith('dog')) btn.classList.add('dog');
                 if (mode.startsWith('cat')) btn.classList.add('cat');
-                if (mode.startsWith('snake')) btn.classList.add('snake');
-                if (mode.startsWith('lizard')) btn.classList.add('lizard');
                 if (mode.startsWith('bat')) btn.classList.add('bat');
                 if (mode === 'auto_patrol') btn.classList.add('patrol');
             }
@@ -690,53 +705,40 @@
             const badgeEl = document.getElementById('freqBadge');
             numEl.className = 'freq-num';
 
-            if (mode === 'cat_fight') {
+            if (mode === 'real_alarm') {
+                numEl.textContent = "2,800 Hz (Choque)";
+                numEl.classList.add('alarm');
+                badgeEl.textContent = "🚨 ALARMA DISUASIVA DE CHOQUE (Sonido audible fuerte que SÍ asusta animales)";
+            } else if (mode === 'cat_fight') {
                 numEl.textContent = "22,500 Hz";
                 numEl.classList.add('cat');
-                badgeEl.textContent = "🐱 DESACTIVA-PELEAS GATOS (Silencio para ti, insoportable para gatos)";
-            } else if (mode === 'cat_roof') {
-                numEl.textContent = "23,200 Hz";
-                numEl.classList.add('cat');
-                badgeEl.textContent = "🏠 AHUYENTA-TECHOS (Ráfagas ultrasónicas inaudibles)";
-            } else if (mode === 'snake_silent') {
-                numEl.textContent = "21,000 Hz";
-                numEl.classList.add('snake');
-                badgeEl.textContent = "🐍 CHOQUE ACÚSTICO ROCAS (Inaudible humanos, desaloja víboras)";
-            } else if (mode === 'lizard_silent') {
-                numEl.textContent = "21,800 Hz";
-                numEl.classList.add('lizard');
-                badgeEl.textContent = "🦎 AHUYENTA-REPTIL (Silencio humano, perturba lagartijas e iguanas)";
+                badgeEl.textContent = "🐱 GATOS (Ultrasonido inaudible personas)";
             } else if (mode === 'dog_silent') {
                 numEl.textContent = "22,000 Hz";
                 numEl.classList.add('dog');
-                badgeEl.textContent = "🐕 SILBATO CANINO INAUDIBLE (Cero ruido humano, detiene perros)";
-            } else if (mode === 'dog_pulse') {
-                numEl.textContent = "21.5 - 23.2 kHz";
-                numEl.classList.add('dog');
-                badgeEl.textContent = "⚡ PULSO CANINO (Inaudible personas, corta ladridos)";
+                badgeEl.textContent = "🐕 PERROS (Silbato inaudible personas)";
             } else if (mode === 'mosquito_silent') {
                 numEl.textContent = "20,800 Hz";
-                badgeEl.textContent = "🦟 ANTENA ZANCUDO (Inaudible personas, bloquea sus sensores)";
+                badgeEl.textContent = "🦟 ZANCUDOS (Inaudible personas)";
             } else if (mode === 'bat_jammer') {
                 numEl.textContent = "23,500 Hz";
                 numEl.classList.add('bat');
-                badgeEl.textContent = "🦇 BLOQUEADOR RADAR MURCIÉLAGOS (Inaudible, bloquea su vuelo)";
+                badgeEl.textContent = "🦇 MURCIÉLAGOS (Inaudible personas)";
             } else if (mode === 'auto_patrol') {
-                const targetSub = patrolModes[patrolIdx];
                 numEl.textContent = "PATRULLA 360°";
                 numEl.classList.add('patrol');
-                badgeEl.textContent = "🚨 PATRULLANDO EN 2° PLANO: " + getModeTitle(targetSub).toUpperCase();
+                badgeEl.textContent = "🚨 PATRULLANDO EN 2° PLANO: " + getModeTitle(patrolModes[patrolIdx]).toUpperCase();
             }
 
             if (isPlaying) {
-                updateMediaSession(currentMode === 'auto_patrol' ? 'Patrullaje 360° (' + getModeTitle(patrolModes[patrolIdx]) + ')' : getModeTitle(currentMode));
+                updateMediaSession(getModeTitle(currentMode));
             }
         }
 
         function updateVol(val) {
             document.getElementById('volVal').textContent = val + "%";
             if (gainNode && audioCtx) {
-                const safeGain = (val / 100) * 0.75;
+                const safeGain = (val / 100) * 0.8;
                 gainNode.gain.setValueAtTime(safeGain, audioCtx.currentTime);
             }
         }
@@ -763,9 +765,8 @@
             for (let i = 0; i < 32; i++) {
                 const barHeight = (dataArray[i * 2] / 255) * canvas.height;
                 let barColor = '#38bdf8';
-                if (currentMode.startsWith('cat')) barColor = '#ec4899';
-                else if (currentMode.startsWith('snake')) barColor = '#10b981';
-                else if (currentMode.startsWith('lizard')) barColor = '#84cc16';
+                if (currentMode === 'real_alarm') barColor = '#f43f5e';
+                else if (currentMode.startsWith('cat')) barColor = '#ec4899';
                 else if (currentMode.startsWith('dog')) barColor = '#f59e0b';
                 else if (currentMode.startsWith('bat')) barColor = '#c084fc';
                 else if (currentMode === 'auto_patrol') barColor = '#ef4444';
@@ -789,17 +790,12 @@
                 osc = null;
             }
 
-            // ONDAS SENOIDALES PURAS INAUDIBLES
             osc = audioCtx.createOscillator();
-            osc.type = 'sine';
 
-            if (targetMode === 'cat_fight') {
-                osc.frequency.setValueAtTime(22500, audioCtx.currentTime);
-                osc.connect(gainNode);
-                osc.start();
-
-            } else if (targetMode === 'cat_roof') {
-                osc.frequency.setValueAtTime(23200, audioCtx.currentTime);
+            if (targetMode === 'real_alarm') {
+                // Sirena / Bocina pulsante de choque de 2,200 a 3,400 Hz que SÍ asusta animales
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(2400, audioCtx.currentTime);
                 osc.connect(gainNode);
                 osc.start();
 
@@ -807,42 +803,29 @@
                 timerLoop = setInterval(() => {
                     if (!osc || !audioCtx) return;
                     high = !high;
-                    osc.frequency.setValueAtTime(high ? 23800 : 22800, audioCtx.currentTime);
-                }, 80);
+                    osc.frequency.setValueAtTime(high ? 3400 : 2200, audioCtx.currentTime);
+                }, 150);
 
-            } else if (targetMode === 'snake_silent') {
-                osc.frequency.setValueAtTime(21000, audioCtx.currentTime);
-                osc.connect(gainNode);
-                osc.start();
-
-            } else if (targetMode === 'lizard_silent') {
-                osc.frequency.setValueAtTime(21800, audioCtx.currentTime);
+            } else if (targetMode === 'cat_fight') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(22500, audioCtx.currentTime);
                 osc.connect(gainNode);
                 osc.start();
 
             } else if (targetMode === 'dog_silent') {
+                osc.type = 'sine';
                 osc.frequency.setValueAtTime(22000, audioCtx.currentTime);
                 osc.connect(gainNode);
                 osc.start();
 
-            } else if (targetMode === 'dog_pulse') {
-                osc.frequency.setValueAtTime(21500, audioCtx.currentTime);
-                osc.connect(gainNode);
-                osc.start();
-
-                let tog = false;
-                timerLoop = setInterval(() => {
-                    if (!osc || !audioCtx) return;
-                    tog = !tog;
-                    osc.frequency.setValueAtTime(tog ? 23200 : 21500, audioCtx.currentTime);
-                }, 100);
-
             } else if (targetMode === 'mosquito_silent') {
+                osc.type = 'sine';
                 osc.frequency.setValueAtTime(20800, audioCtx.currentTime);
                 osc.connect(gainNode);
                 osc.start();
 
             } else if (targetMode === 'bat_jammer') {
+                osc.type = 'sine';
                 osc.frequency.setValueAtTime(23500, audioCtx.currentTime);
                 osc.connect(gainNode);
                 osc.start();
@@ -851,7 +834,7 @@
 
         function startSound() {
             const rawVol = document.getElementById('volSlider').value / 100;
-            const safeGain = rawVol * 0.75;
+            const safeGain = rawVol * 0.8;
 
             gainNode = audioCtx.createGain();
             gainNode.gain.setValueAtTime(0.0001, audioCtx.currentTime);
@@ -865,13 +848,11 @@
 
             applySoundForMode(currentMode);
 
-            // Activar audio de soporte en segundo plano para evitar que Android suspenda el proceso
             const bgAudio = document.getElementById('bgKeepAlive');
             if (bgAudio) {
-                bgAudio.play().catch(e => console.log('bgAudio info:', e));
+                bgAudio.play().catch(e => console.log('bgAudio play:', e));
             }
 
-            // Temporizador de patrullaje resistente al segundo plano
             if (currentMode === 'auto_patrol') {
                 lastPatrolTime = Date.now();
                 patrolTimer = setInterval(() => {
@@ -882,12 +863,12 @@
                         patrolIdx = (patrolIdx + 1) % patrolModes.length;
                         applySoundForMode('auto_patrol');
                     }
-                }, 1000); // Chequea cada segundo para no ser bloqueado por ahorro de energía
+                }, 1000);
             }
 
             drawWave();
             requestWake();
-            updateMediaSession(currentMode === 'auto_patrol' ? 'Patrullaje 360°' : getModeTitle(currentMode));
+            updateMediaSession(getModeTitle(currentMode));
         }
 
         function stopSound() {
@@ -936,10 +917,10 @@
             if (!isPlaying) {
                 startSound();
                 isPlaying = true;
-                btn.textContent = "⏹ DETENER ESCUDO SÓNICO";
+                btn.textContent = "⏹ DETENER ESCUDO / ALARMA";
                 btn.classList.add('stop');
                 dot.classList.add('active');
-                statusTxt.textContent = "ESCUDO EMITIENDO EN SEGUNDO PLANO (PANTALLA BLOQUEABLE)";
+                statusTxt.textContent = "DISUASIÓN EMITIENDO EN SEGUNDO PLANO";
                 statusTxt.style.color = "#22c55e";
             } else {
                 stopSound();

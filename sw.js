@@ -1,4 +1,4 @@
-const CACHE_NAME = 'escudo-sonico-v5-bg';
+const CACHE_NAME = 'escudo-sonico-v6';
 const ASSETS = [
   './',
   './index.html',
@@ -10,9 +10,7 @@ const ASSETS = [
 self.addEventListener('install', (e) => {
   self.skipWaiting();
   e.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(ASSETS);
-    })
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS))
   );
 });
 
@@ -28,8 +26,6 @@ self.addEventListener('activate', (e) => {
   );
 });
 
-// Network-First for HTML navigation to ensure phones always get the latest version
-// Fallback to cache for 100% offline support
 self.addEventListener('fetch', (e) => {
   if (e.request.mode === 'navigate' || e.request.url.includes('index.html')) {
     e.respondWith(
@@ -44,10 +40,7 @@ self.addEventListener('fetch', (e) => {
     return;
   }
 
-  // Cache-first for icons and manifest
   e.respondWith(
-    caches.match(e.request).then((res) => {
-      return res || fetch(e.request);
-    })
+    caches.match(e.request).then((res) => res || fetch(e.request))
   );
 });
