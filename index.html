@@ -39,21 +39,45 @@
             box-shadow: 0 25px 60px -10px rgba(0, 0, 0, 0.9), 0 0 35px rgba(56, 189, 248, 0.12);
             text-align: center;
         }
+        .version-banner {
+            background: linear-gradient(90deg, rgba(16, 185, 129, 0.2), rgba(6, 182, 212, 0.2));
+            border: 1px solid #10b981;
+            border-radius: 12px;
+            padding: 8px 12px;
+            margin-bottom: 12px;
+            font-size: 11.5px;
+            font-weight: 800;
+            color: #34d399;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 6px;
+        }
+        .btn-reload {
+            background: #1e293b;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #38bdf8;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 800;
+            cursor: pointer;
+        }
         .header-badges {
             display: flex;
             justify-content: center;
             gap: 8px;
             flex-wrap: wrap;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
         .badge {
             display: inline-flex;
             align-items: center;
             gap: 5px;
-            font-size: 11px;
+            font-size: 10.5px;
             font-weight: 800;
             letter-spacing: 0.5px;
-            padding: 5px 12px;
+            padding: 4px 10px;
             border-radius: 9999px;
             text-transform: uppercase;
         }
@@ -61,12 +85,11 @@
             background: rgba(16, 185, 129, 0.15);
             color: #34d399;
             border: 1px solid rgba(16, 185, 129, 0.4);
-            box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
         }
-        .badge-boost {
-            background: rgba(245, 158, 11, 0.15);
-            color: #fbbf24;
-            border: 1px solid rgba(245, 158, 11, 0.35);
+        .badge-clean {
+            background: rgba(56, 189, 248, 0.15);
+            color: #38bdf8;
+            border: 1px solid rgba(56, 189, 248, 0.4);
         }
         h1 {
             font-size: 21px;
@@ -86,7 +109,7 @@
             border: 1px solid rgba(16, 185, 129, 0.25);
             border-radius: 12px;
             padding: 8px 12px;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -97,7 +120,7 @@
         .human-hearing-box span.val {
             color: #34d399;
             background: rgba(16, 185, 129, 0.2);
-            padding: 3px 8px;
+            padding: 2px 7px;
             border-radius: 6px;
         }
         .monitor {
@@ -105,7 +128,7 @@
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 18px;
             padding: 14px;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
         }
         .monitor-status {
             display: flex;
@@ -136,7 +159,7 @@
             50% { opacity: 0.4; }
         }
         .freq-num {
-            font-size: 34px;
+            font-size: 33px;
             font-weight: 900;
             color: #38bdf8;
             letter-spacing: 1px;
@@ -161,48 +184,6 @@
             margin-top: 8px;
             background: #020617;
             border-radius: 8px;
-        }
-        .boost-selector {
-            background: rgba(15, 23, 42, 0.7);
-            border-radius: 12px;
-            padding: 8px 12px;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 8px;
-        }
-        .boost-title {
-            font-size: 11px;
-            font-weight: 800;
-            color: #94a3b8;
-            text-align: left;
-        }
-        .boost-title span {
-            display: block;
-            color: #f59e0b;
-            font-size: 9.5px;
-        }
-        .boost-buttons {
-            display: flex;
-            gap: 6px;
-        }
-        .btn-boost-opt {
-            background: #1e293b;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #cbd5e1;
-            padding: 5px 10px;
-            border-radius: 8px;
-            font-size: 11px;
-            font-weight: 800;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        .btn-boost-opt.active {
-            background: linear-gradient(135deg, #f59e0b, #d97706);
-            color: white;
-            border-color: #fbbf24;
-            box-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
         }
         .category-title {
             text-align: left;
@@ -357,30 +338,23 @@
 </head>
 <body>
     <div class="card">
+        <!-- Version Banner & Cache Clear -->
+        <div class="version-banner">
+            <span>✨ VERSIÓN 4.0 (100% SILENCIOSO HUMANO)</span>
+            <button class="btn-reload" onclick="forzarActualizacion()">🔄 Limpiar Caché</button>
+        </div>
+
         <div class="header-badges">
-            <div class="badge badge-silent">🔇 100% SILENCIOSO PARA TI</div>
-            <div class="badge badge-boost" id="boostBadge">🚀 TURBO BOOST 3x</div>
+            <div class="badge badge-silent">🔇 0% RUIDO HUMANO</div>
+            <div class="badge badge-clean">⚡ ONDA PURA SIN DISTORSIÓN</div>
         </div>
 
         <h1>Escudo Sónico Inaudible</h1>
-        <p class="subtitle">Emisión ultrasónica calibrada. <strong>Cero ruidos molestos para humanos</strong>, máxima potencia para ahuyentar plagas y animales.</p>
+        <p class="subtitle">Emisión ultrasónica de alta frecuencia pura. <strong>Cero pitidos feos ni dolor de cabeza para ti</strong>, máxima efectividad contra animales y plagas.</p>
 
         <div class="human-hearing-box">
-            <span>Oído Humano Adulto: <strong>SILENCIO TOTAL (0% Ruido)</strong></span>
-            <span class="val">Onda Senoidal Pura</span>
-        </div>
-
-        <!-- Booster Selector -->
-        <div class="boost-selector">
-            <div class="boost-title">
-                POTENCIA CELULAR / PARLANTE:
-                <span>Mayor alcance para altavoces</span>
-            </div>
-            <div class="boost-buttons">
-                <button class="btn-boost-opt" onclick="setBoost(1, this)">1x Norm</button>
-                <button class="btn-boost-opt" onclick="setBoost(2, this)">2x Fuerte</button>
-                <button class="btn-boost-opt active" onclick="setBoost(3, this)">3x Turbo</button>
-            </div>
+            <span>Tu Oído Humano: <strong>SILENCIO TOTAL (0% Ruido)</strong></span>
+            <span class="val">> 20,500 Hz Puro</span>
         </div>
 
         <div class="monitor">
@@ -388,8 +362,8 @@
                 <span id="dot" class="dot"></span>
                 <span id="statusTxt">PARLANTES EN ESPERA (TOCA ACTIVAR)</span>
             </div>
-            <div class="freq-num cat" id="freqNum">25,200 Hz</div>
-            <div class="freq-badge" id="freqBadge">🐱 DESACTIVA-PELEAS GATOS (Tú no oyes nada, los gatos huyen)</div>
+            <div class="freq-num cat" id="freqNum">22,500 Hz</div>
+            <div class="freq-badge" id="freqBadge">🐱 DESACTIVA-PELEAS GATOS (Silencio para ti, insoportable para gatos)</div>
             <canvas id="waveCanvas"></canvas>
         </div>
 
@@ -397,34 +371,34 @@
         <div class="category-title">🐱 DEFENSA GATOS (100% INAUDIBLE HUMANOS):</div>
         <div class="btn-grid">
             <button class="btn-mode active cat" onclick="setMode('cat_fight', this)">
-                <span class="t">🐱 Desactiva-Peleas (25.2 kHz)</span>
-                <span class="d">Silencio total para ti. Frena riñas y maullidos en techos.</span>
+                <span class="t">🐱 Desactiva-Peleas (22.5 kHz)</span>
+                <span class="d">Tú no oyes nada. Desaloja riñas y maullidos en techos.</span>
             </button>
             <button class="btn-mode cat" onclick="setMode('cat_roof', this)">
-                <span class="t">🏠 Ahuyenta-Techos (24-26 kHz)</span>
+                <span class="t">🏠 Ahuyenta-Techos (23.2 kHz)</span>
                 <span class="d">Barrido ultrasónico inaudible para desalojar techos.</span>
             </button>
         </div>
 
         <!-- 2. SERPIENTES / CULEBRAS / VÍBORAS -->
-        <div class="category-title">🐍 DEFENSA SERPIENTES Y CULEBRAS (ROCAS Y GRIETAS):</div>
+        <div class="category-title">🐍 DEFENSA SERPIENTES (ROCAS Y GRIETAS):</div>
         <div class="btn-grid" style="grid-template-columns: 1fr;">
             <button class="btn-mode snake" onclick="setMode('snake_silent', this)">
-                <span class="t">🐍 Choque Acústico de Grietas (20.5 kHz Silencioso)</span>
-                <span class="d">Onda pura inaudible para personas. Genera presión de resonancia en piedras y grietas para desalojar víboras.</span>
+                <span class="t">🐍 Choque Ultrasónico Rocas (21.0 kHz Silencioso)</span>
+                <span class="d">Cero ruido audible para humanos. Presión pura de onda que desaloja víboras de piedras y muros.</span>
             </button>
         </div>
 
         <!-- 3. LAGARTIJAS, IGUANAS Y PLANTAS -->
-        <div class="category-title">🦎 LAGARTIJAS, IGUANAS Y PLANTAS (SIN RUIDOS FEOS):</div>
+        <div class="category-title">🦎 LAGARTIJAS, IGUANAS Y PLANTAS (SIN PITIDOS FEOS):</div>
         <div class="btn-grid">
             <button class="btn-mode lizard" onclick="setMode('lizard_silent', this)">
-                <span class="t">🦎 Ahuyenta-Reptil (21.2 kHz)</span>
-                <span class="d">Ultrasonido puro. Cero pitidos humanos, perturba lagartijas e iguanas.</span>
+                <span class="t">🦎 Ahuyenta-Reptil (21.8 kHz)</span>
+                <span class="d">Ultrasonido puro. Cero pitos audibles, perturba lagartijas e iguanas.</span>
             </button>
             <button class="btn-mode lizard" onclick="setMode('plant_silent', this)">
-                <span class="t">🌿 Escudo Follaje (20.8 kHz)</span>
-                <span class="d">Inaudible para personas. Protege plantas y aleja orugas/bichos.</span>
+                <span class="t">🌿 Escudo Plantas (21.4 kHz)</span>
+                <span class="d">Inaudible personas. Aleja orugas, plagas e insectos de jardín.</span>
             </button>
         </div>
 
@@ -432,11 +406,11 @@
         <div class="category-title">🐕 DEFENSA PERROS (SÓLO LO ESCUCHAN ELLOS):</div>
         <div class="btn-grid">
             <button class="btn-mode dog" onclick="setMode('dog_silent', this)">
-                <span class="t">🐕 Silbato Canino (23.5 kHz)</span>
-                <span class="d">Inaudible humanos. Detiene ataques de perros agresivos.</span>
+                <span class="t">🐕 Silbato Canino (22.0 kHz)</span>
+                <span class="d">100% inaudible personas. Frena perros bravos y ataques.</span>
             </button>
             <button class="btn-mode dog" onclick="setMode('dog_pulse', this)">
-                <span class="t">⚡ Pulso Canino (22-25 kHz)</span>
+                <span class="t">⚡ Pulso Freno (21.5 - 23.2 kHz)</span>
                 <span class="d">Pulsos ultrasónicos rápidos para cortar ladridos.</span>
             </button>
         </div>
@@ -445,12 +419,12 @@
         <div class="category-title">🦟 ZANCUDOS Y 🦇 MURCIÉLAGOS:</div>
         <div class="btn-grid">
             <button class="btn-mode" onclick="setMode('mosquito_silent', this)">
-                <span class="t">🦟 Antena Zancudo (18.8 kHz)</span>
-                <span class="d">Límite ultrasónico limpio. Bloquea sensores de zancudos sin pitos.</span>
+                <span class="t">🦟 Antena Zancudo (20.8 kHz)</span>
+                <span class="d">100% inaudible humano (ya no es 17k). Aturde antenas de zancudos.</span>
             </button>
             <button class="btn-mode bat" onclick="setMode('bat_jammer', this)">
-                <span class="t">🦇 Bloqueador Radar (23.0 kHz)</span>
-                <span class="d">Completamente inaudible. Ciega ecolocalización de murciélagos.</span>
+                <span class="t">🦇 Bloqueador Radar (23.5 kHz)</span>
+                <span class="d">Inaudible. Bloquea el vuelo y orientación de murciélagos.</span>
             </button>
         </div>
 
@@ -459,15 +433,15 @@
         <div class="btn-grid" style="grid-template-columns: 1fr;">
             <button class="btn-mode patrol" onclick="setMode('auto_patrol', this)">
                 <span class="t">🚨 MODO PATRULLAJE 360° (Ciclo Automático Inaudible)</span>
-                <span class="d">Va alternando automáticamente cada 12 segundos entre todas las especies en ultrasonido puro. Tu casa protegida en absoluto silencio.</span>
+                <span class="d">Va alternando automáticamente cada 12 segundos entre todas las plagas en ultrasonido limpio. Tu casa protegida en absoluto silencio.</span>
             </button>
         </div>
 
         <!-- Volume Slider -->
         <div class="vol-box">
             <div class="vol-label">
-                <span>Potencia de Salida:</span>
-                <span id="volVal" class="val">100% (Potencia Total)</span>
+                <span>Potencia de Salida (Calibrada sin saturación):</span>
+                <span id="volVal" class="val">100%</span>
             </div>
             <input type="range" id="volSlider" min="10" max="100" value="100" oninput="updateVol(this.value)">
         </div>
@@ -476,8 +450,9 @@
         <button id="installBtn" class="btn-install" onclick="installPWA()">📲 Instalar en Celular (Acceso Directo)</button>
 
         <div class="notice">
-            <strong>✅ Cero Sonidos Feos Garantizado:</strong><br>
-            Todas las frecuencias están calibradas por encima de los <strong>18,800 Hz hasta 25,500 Hz con ondas senoidales puras</strong>. Ningún adulto humano las escucha. Puedes dejarlo encendido toda la noche sin dolor de cabeza ni molestias en tu casa.
+            <strong>✅ ¿Por qué antes se escuchaba feo y ahora no?</strong><br>
+            • Se eliminaron por completo las frecuencias bajas y los 17.4 kHz que tu oído alcanzaba a percibir.<br>
+            • Ahora todas las frecuencias están estrictamente por encima de <strong>20,800 Hz con ondas senoidales puras y volumen calibrado</strong> para que el parlante de tu celular no distorsione ni haga ruidos raros.
         </div>
     </div>
 
@@ -486,9 +461,30 @@
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./sw.js')
-                    .then(reg => console.log('SW activo:', reg.scope))
+                    .then(reg => {
+                        reg.onupdatefound = () => {
+                            const installing = reg.installing;
+                            installing.onstatechange = () => {
+                                if (installing.state === 'installed' && navigator.serviceWorker.controller) {
+                                    console.log('Nueva versión v4 disponible');
+                                }
+                            };
+                        };
+                    })
                     .catch(err => console.log('SW error:', err));
             });
+        }
+
+        async function forzarActualizacion() {
+            if ('serviceWorker' in navigator) {
+                const regs = await navigator.serviceWorker.getRegistrations();
+                for (let r of regs) await r.unregister();
+            }
+            if ('caches' in window) {
+                const keys = await caches.keys();
+                for (let k of keys) await caches.delete(k);
+            }
+            window.location.reload(true);
         }
 
         // PWA Install Prompt
@@ -516,17 +512,15 @@
         let audioCtx = null;
         let isPlaying = false;
         let currentMode = 'cat_fight';
-        let boostFactor = 3.0;
         let osc = null;
         let gainNode = null;
-        let compressor = null;
         let timerLoop = null;
         let patrolTimer = null;
         let analyser = null;
         let animId = null;
         let wakeLock = null;
 
-        // Todas las frecuencias del patrullaje son 100% ultrasónicas e inaudibles para humanos
+        // Todas las frecuencias superan los 20,500 Hz (Inaudible para humanos adultos)
         const patrolModes = ['cat_fight', 'snake_silent', 'lizard_silent', 'dog_silent', 'mosquito_silent', 'bat_jammer'];
         let patrolIdx = 0;
 
@@ -547,21 +541,6 @@
         function initAudio() {
             if (!audioCtx) {
                 audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            }
-        }
-
-        function setBoost(factor, btn) {
-            boostFactor = factor;
-            document.querySelectorAll('.btn-boost-opt').forEach(b => b.classList.remove('active'));
-            if (btn) btn.classList.add('active');
-            const badge = document.getElementById('boostBadge');
-            if (factor === 1) badge.textContent = "🔊 POTENCIA 1x";
-            else if (factor === 2) badge.textContent = "⚡ POTENCIA 2x";
-            else badge.textContent = "🚀 TURBO BOOST 3x";
-
-            if (isPlaying && gainNode && audioCtx) {
-                const vol = (document.getElementById('volSlider').value / 100) * (boostFactor * 0.9);
-                gainNode.gain.setValueAtTime(vol, audioCtx.currentTime);
             }
         }
 
@@ -592,38 +571,38 @@
             numEl.className = 'freq-num';
 
             if (mode === 'cat_fight') {
-                numEl.textContent = "25,200 Hz";
+                numEl.textContent = "22,500 Hz";
                 numEl.classList.add('cat');
-                badgeEl.textContent = "🐱 DESACTIVA-PELEAS GATOS (Silencio para ti, aturde y separa gatos)";
+                badgeEl.textContent = "🐱 DESACTIVA-PELEAS GATOS (Silencio para ti, insoportable para gatos)";
             } else if (mode === 'cat_roof') {
-                numEl.textContent = "24 ➔ 26 kHz";
+                numEl.textContent = "23,200 Hz";
                 numEl.classList.add('cat');
                 badgeEl.textContent = "🏠 AHUYENTA-TECHOS (Ráfagas ultrasónicas inaudibles)";
             } else if (mode === 'snake_silent') {
-                numEl.textContent = "20,500 Hz";
+                numEl.textContent = "21,000 Hz";
                 numEl.classList.add('snake');
-                badgeEl.textContent = "🐍 CHOQUE ACÚSTICO ROCAS (Inaudible humanos, desaloja víboras de grietas)";
+                badgeEl.textContent = "🐍 CHOQUE ACÚSTICO ROCAS (Inaudible humanos, desaloja víboras)";
             } else if (mode === 'lizard_silent') {
-                numEl.textContent = "21,200 Hz";
+                numEl.textContent = "21,800 Hz";
                 numEl.classList.add('lizard');
-                badgeEl.textContent = "🦎 AHUYENTA-REPTIL (Silencio total humano, estrés para lagartijas)";
+                badgeEl.textContent = "🦎 AHUYENTA-REPTIL (Silencio humano, perturba lagartijas e iguanas)";
             } else if (mode === 'plant_silent') {
-                numEl.textContent = "20,800 Hz";
+                numEl.textContent = "21,400 Hz";
                 numEl.classList.add('lizard');
-                badgeEl.textContent = "🌿 ESCUDO FOLLAJE (Inaudible personas, perturba plagas de plantas)";
+                badgeEl.textContent = "🌿 ESCUDO PLANTAS (Inaudible personas, aleja orugas y plagas)";
             } else if (mode === 'dog_silent') {
-                numEl.textContent = "23,500 Hz";
+                numEl.textContent = "22,000 Hz";
                 numEl.classList.add('dog');
                 badgeEl.textContent = "🐕 SILBATO CANINO INAUDIBLE (Cero ruido humano, detiene perros)";
             } else if (mode === 'dog_pulse') {
-                numEl.textContent = "22 - 25 kHz";
+                numEl.textContent = "21.5 - 23.2 kHz";
                 numEl.classList.add('dog');
-                badgeEl.textContent = "⚡ PULSO CANINO (Inaudible humanos, corta ladridos)";
+                badgeEl.textContent = "⚡ PULSO CANINO (Inaudible personas, corta ladridos)";
             } else if (mode === 'mosquito_silent') {
-                numEl.textContent = "18,800 Hz";
-                badgeEl.textContent = "🦟 ANTENA ZANCUDO (Límite ultrasónico limpio, sin zumbidos)";
+                numEl.textContent = "20,800 Hz";
+                badgeEl.textContent = "🦟 ANTENA ZANCUDO (Inaudible personas, bloquea sus sensores)";
             } else if (mode === 'bat_jammer') {
-                numEl.textContent = "23,000 Hz";
+                numEl.textContent = "23,500 Hz";
                 numEl.classList.add('bat');
                 badgeEl.textContent = "🦇 BLOQUEADOR RADAR MURCIÉLAGOS (Inaudible, bloquea su vuelo)";
             } else if (mode === 'auto_patrol') {
@@ -636,8 +615,9 @@
         function updateVol(val) {
             document.getElementById('volVal').textContent = val + "%";
             if (gainNode && audioCtx) {
-                const effectiveGain = (val / 100) * (boostFactor * 0.9);
-                gainNode.gain.setValueAtTime(effectiveGain, audioCtx.currentTime);
+                // Calibración limpia: max 0.75 para evitar clipping en altavoces de celular
+                const safeGain = (val / 100) * 0.75;
+                gainNode.gain.setValueAtTime(safeGain, audioCtx.currentTime);
             }
         }
 
@@ -689,34 +669,17 @@
                 osc = null;
             }
 
-            // SIEMPRE ONDA SENOIDAL PURA (Sine Wave) para eliminar chirridos, sierras o ruidos feos
+            // ONDA SENOIDAL PURA - Nunca usar sawtooth ni square para no generar armónicos feos
             osc = audioCtx.createOscillator();
             osc.type = 'sine';
 
             if (targetMode === 'cat_fight') {
-                // 25.2 kHz pura (Inaudible humanos)
-                osc.frequency.setValueAtTime(25200, audioCtx.currentTime);
+                osc.frequency.setValueAtTime(22500, audioCtx.currentTime);
                 osc.connect(gainNode);
                 osc.start();
 
             } else if (targetMode === 'cat_roof') {
-                // 24 a 26 kHz barrido puro
-                osc.frequency.setValueAtTime(24000, audioCtx.currentTime);
-                osc.connect(gainNode);
-                osc.start();
-
-                let freq = 24000, step = 250;
-                timerLoop = setInterval(() => {
-                    if (!osc || !audioCtx) return;
-                    freq += step;
-                    if (freq >= 26000) step = -250;
-                    if (freq <= 24000) step = 250;
-                    osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-                }, 50);
-
-            } else if (targetMode === 'snake_silent') {
-                // 20.5 kHz onda pura modulada
-                osc.frequency.setValueAtTime(20500, audioCtx.currentTime);
+                osc.frequency.setValueAtTime(23200, audioCtx.currentTime);
                 osc.connect(gainNode);
                 osc.start();
 
@@ -724,30 +687,31 @@
                 timerLoop = setInterval(() => {
                     if (!osc || !audioCtx) return;
                     high = !high;
-                    osc.frequency.setValueAtTime(high ? 20800 : 20200, audioCtx.currentTime);
-                }, 100);
+                    osc.frequency.setValueAtTime(high ? 23800 : 22800, audioCtx.currentTime);
+                }, 80);
+
+            } else if (targetMode === 'snake_silent') {
+                osc.frequency.setValueAtTime(21000, audioCtx.currentTime);
+                osc.connect(gainNode);
+                osc.start();
 
             } else if (targetMode === 'lizard_silent') {
-                // 21.2 kHz onda pura inaudible
-                osc.frequency.setValueAtTime(21200, audioCtx.currentTime);
+                osc.frequency.setValueAtTime(21800, audioCtx.currentTime);
                 osc.connect(gainNode);
                 osc.start();
 
             } else if (targetMode === 'plant_silent') {
-                // 20.8 kHz onda pura inaudible
-                osc.frequency.setValueAtTime(20800, audioCtx.currentTime);
+                osc.frequency.setValueAtTime(21400, audioCtx.currentTime);
                 osc.connect(gainNode);
                 osc.start();
 
             } else if (targetMode === 'dog_silent') {
-                // 23.5 kHz silbato canino inaudible
-                osc.frequency.setValueAtTime(23500, audioCtx.currentTime);
+                osc.frequency.setValueAtTime(22000, audioCtx.currentTime);
                 osc.connect(gainNode);
                 osc.start();
 
             } else if (targetMode === 'dog_pulse') {
-                // 22 a 25 kHz pulso
-                osc.frequency.setValueAtTime(22000, audioCtx.currentTime);
+                osc.frequency.setValueAtTime(21500, audioCtx.currentTime);
                 osc.connect(gainNode);
                 osc.start();
 
@@ -755,18 +719,17 @@
                 timerLoop = setInterval(() => {
                     if (!osc || !audioCtx) return;
                     tog = !tog;
-                    osc.frequency.setValueAtTime(tog ? 25000 : 22000, audioCtx.currentTime);
+                    osc.frequency.setValueAtTime(tog ? 23200 : 21500, audioCtx.currentTime);
                 }, 100);
 
             } else if (targetMode === 'mosquito_silent') {
-                // 18.8 kHz pura
-                osc.frequency.setValueAtTime(18800, audioCtx.currentTime);
+                // 20,800 Hz puro: inaudible para humanos, perturba el órgano de Johnston de zancudos
+                osc.frequency.setValueAtTime(20800, audioCtx.currentTime);
                 osc.connect(gainNode);
                 osc.start();
 
             } else if (targetMode === 'bat_jammer') {
-                // 23.0 kHz inaudible
-                osc.frequency.setValueAtTime(23000, audioCtx.currentTime);
+                osc.frequency.setValueAtTime(23500, audioCtx.currentTime);
                 osc.connect(gainNode);
                 osc.start();
             }
@@ -774,23 +737,17 @@
 
         function startSound() {
             const rawVol = document.getElementById('volSlider').value / 100;
-            const effectiveGain = rawVol * (boostFactor * 0.9);
+            const safeGain = rawVol * 0.75; // Ganancia segura que evita saturación
 
             gainNode = audioCtx.createGain();
-            gainNode.gain.setValueAtTime(effectiveGain, audioCtx.currentTime);
-
-            compressor = audioCtx.createDynamicsCompressor();
-            compressor.threshold.setValueAtTime(-6, audioCtx.currentTime);
-            compressor.knee.setValueAtTime(20, audioCtx.currentTime);
-            compressor.ratio.setValueAtTime(12, audioCtx.currentTime);
-            compressor.attack.setValueAtTime(0.003, audioCtx.currentTime);
-            compressor.release.setValueAtTime(0.25, audioCtx.currentTime);
+            // Rampa suave para evitar el "chasquido" o "pop" inicial
+            gainNode.gain.setValueAtTime(0.0001, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(Math.max(0.001, safeGain), audioCtx.currentTime + 0.05);
 
             analyser = audioCtx.createAnalyser();
             analyser.fftSize = 128;
 
-            gainNode.connect(compressor);
-            compressor.connect(analyser);
+            gainNode.connect(analyser);
             analyser.connect(audioCtx.destination);
 
             applySoundForMode(currentMode);
@@ -813,8 +770,18 @@
             if (animId) { cancelAnimationFrame(animId); animId = null; }
 
             if (osc) {
-                try { osc.stop(); osc.disconnect(); } catch(e){}
-                osc = null;
+                try {
+                    if (gainNode && audioCtx) {
+                        gainNode.gain.setValueAtTime(gainNode.gain.value, audioCtx.currentTime);
+                        gainNode.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.03);
+                    }
+                    setTimeout(() => {
+                        try { osc.stop(); osc.disconnect(); } catch(e){}
+                        osc = null;
+                    }, 40);
+                } catch(e) {
+                    osc = null;
+                }
             }
 
             const canvas = document.getElementById('waveCanvas');
