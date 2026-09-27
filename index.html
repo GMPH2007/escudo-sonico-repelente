@@ -11,7 +11,7 @@
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" href="icon-192.png">
     <link rel="apple-touch-icon" href="icon-192.png">
-    <title>Escudo Sónico: 100% Silencioso para Humanos (PWA)</title>
+    <title>Escudo Sónico: App 100% Offline e Instalable</title>
     <style>
         * {
             box-sizing: border-box;
@@ -33,31 +33,57 @@
             backdrop-filter: blur(20px);
             border: 1px solid rgba(56, 189, 248, 0.25);
             border-radius: 26px;
-            padding: 22px;
+            padding: 20px;
             max-width: 540px;
             width: 100%;
             box-shadow: 0 25px 60px -10px rgba(0, 0, 0, 0.9), 0 0 35px rgba(56, 189, 248, 0.12);
             text-align: center;
         }
-        .version-banner {
-            background: linear-gradient(90deg, rgba(16, 185, 129, 0.2), rgba(6, 182, 212, 0.2));
-            border: 1px solid #10b981;
-            border-radius: 12px;
-            padding: 8px 12px;
+        /* Botón de instalación super llamativo */
+        .install-banner-btn {
+            background: linear-gradient(135deg, #0284c7, #2563eb);
+            color: white;
+            border: 1px solid #38bdf8;
+            border-radius: 14px;
+            padding: 12px 14px;
+            width: 100%;
+            font-size: 13.5px;
+            font-weight: 900;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 0 20px rgba(2, 132, 199, 0.5);
+            animation: pulse-border 2s infinite;
             margin-bottom: 12px;
-            font-size: 11.5px;
-            font-weight: 800;
-            color: #34d399;
+            transition: all 0.2s ease;
+        }
+        .install-banner-btn:active {
+            transform: scale(0.98);
+        }
+        @keyframes pulse-border {
+            0%, 100% { box-shadow: 0 0 15px rgba(2, 132, 199, 0.4); }
+            50% { box-shadow: 0 0 25px rgba(56, 189, 248, 0.8); }
+        }
+        .version-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 6px;
+            margin-bottom: 10px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #94a3b8;
+            background: rgba(15, 23, 42, 0.6);
+            padding: 6px 12px;
+            border-radius: 10px;
         }
         .btn-reload {
             background: #1e293b;
             border: 1px solid rgba(255, 255, 255, 0.2);
             color: #38bdf8;
-            padding: 4px 8px;
+            padding: 3px 8px;
             border-radius: 6px;
             font-size: 10px;
             font-weight: 800;
@@ -86,10 +112,15 @@
             color: #34d399;
             border: 1px solid rgba(16, 185, 129, 0.4);
         }
-        .badge-clean {
+        .badge-net {
             background: rgba(56, 189, 248, 0.15);
             color: #38bdf8;
             border: 1px solid rgba(56, 189, 248, 0.4);
+        }
+        .badge-offline-now {
+            background: rgba(245, 158, 11, 0.15);
+            color: #fbbf24;
+            border: 1px solid rgba(245, 158, 11, 0.4);
         }
         h1 {
             font-size: 21px;
@@ -101,27 +132,8 @@
         p.subtitle {
             font-size: 12px;
             color: #94a3b8;
-            margin: 0 0 14px 0;
+            margin: 0 0 12px 0;
             line-height: 1.4;
-        }
-        .human-hearing-box {
-            background: rgba(16, 185, 129, 0.08);
-            border: 1px solid rgba(16, 185, 129, 0.25);
-            border-radius: 12px;
-            padding: 8px 12px;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-size: 11px;
-            color: #a7f3d0;
-            font-weight: 700;
-        }
-        .human-hearing-box span.val {
-            color: #34d399;
-            background: rgba(16, 185, 129, 0.2);
-            padding: 2px 7px;
-            border-radius: 6px;
         }
         .monitor {
             background: rgba(3, 7, 18, 0.85);
@@ -173,7 +185,7 @@
         .freq-num.bat { color: #c084fc; }
         .freq-num.patrol { color: #ef4444; }
         .freq-badge {
-            font-size: 11.5px;
+            font-size: 11px;
             color: #22c55e;
             font-weight: 700;
             min-height: 18px;
@@ -309,53 +321,75 @@
             background: linear-gradient(135deg, #dc2626, #b91c1c);
             box-shadow: 0 8px 20px rgba(220, 38, 38, 0.35);
         }
-        .btn-install {
+
+        /* Modal para guiar la instalación en celular */
+        .modal-overlay {
             display: none;
-            margin-top: 8px;
-            background: #334155;
-            color: #38bdf8;
-            border: 1px solid rgba(56, 189, 248, 0.4);
-            padding: 9px;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .modal-box {
+            background: #0f172a;
+            border: 1px solid #38bdf8;
+            border-radius: 20px;
+            padding: 24px;
+            max-width: 400px;
             width: 100%;
-            font-size: 12px;
-            font-weight: 700;
-            border-radius: 10px;
-            cursor: pointer;
-        }
-        .notice {
-            margin-top: 10px;
-            padding: 9px 11px;
-            background: rgba(15, 23, 42, 0.7);
-            border-radius: 10px;
-            border-left: 3px solid #10b981;
             text-align: left;
-            font-size: 10.5px;
-            color: #cbd5e1;
-            line-height: 1.35;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
         }
-        .notice strong { color: #34d399; }
+        .modal-box h3 {
+            margin: 0 0 10px 0;
+            color: #38bdf8;
+            font-size: 18px;
+        }
+        .modal-box ol {
+            padding-left: 20px;
+            color: #cbd5e1;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+        .modal-box ol li strong {
+            color: #34d399;
+        }
+        .btn-modal-close {
+            background: #0284c7;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 10px;
+            font-weight: 800;
+            cursor: pointer;
+            margin-top: 14px;
+        }
     </style>
 </head>
 <body>
     <div class="card">
-        <!-- Version Banner & Cache Clear -->
-        <div class="version-banner">
+        <!-- Botón Super Prominente de Instalación -->
+        <button id="mainInstallBtn" class="install-banner-btn" onclick="triggerInstallApp()">
+            📲 <span>INSTALAR APP EN TU CELULAR (ACCESO DIRECTO)</span>
+        </button>
+
+        <div class="version-row">
             <span>✨ VERSIÓN 4.0 (100% SILENCIOSO HUMANO)</span>
             <button class="btn-reload" onclick="forzarActualizacion()">🔄 Limpiar Caché</button>
         </div>
 
         <div class="header-badges">
             <div class="badge badge-silent">🔇 0% RUIDO HUMANO</div>
-            <div class="badge badge-clean">⚡ ONDA PURA SIN DISTORSIÓN</div>
+            <div class="badge badge-net" id="netBadge">📶 100% OFFLINE LISTO</div>
         </div>
 
         <h1>Escudo Sónico Inaudible</h1>
-        <p class="subtitle">Emisión ultrasónica de alta frecuencia pura. <strong>Cero pitidos feos ni dolor de cabeza para ti</strong>, máxima efectividad contra animales y plagas.</p>
-
-        <div class="human-hearing-box">
-            <span>Tu Oído Humano: <strong>SILENCIO TOTAL (0% Ruido)</strong></span>
-            <span class="val">> 20,500 Hz Puro</span>
-        </div>
+        <p class="subtitle">Emisión ultrasónica de alta frecuencia pura. <strong>Cero pitidos feos para ti</strong>, máxima potencia para ahuyentar plagas.</p>
 
         <div class="monitor">
             <div class="monitor-status">
@@ -447,12 +481,18 @@
         </div>
 
         <button id="toggleBtn" class="btn-main" onclick="togglePlay()">▶ ACTIVAR ESCUDO AHORA</button>
-        <button id="installBtn" class="btn-install" onclick="installPWA()">📲 Instalar en Celular (Acceso Directo)</button>
+    </div>
 
-        <div class="notice">
-            <strong>✅ ¿Por qué antes se escuchaba feo y ahora no?</strong><br>
-            • Se eliminaron por completo las frecuencias bajas y los 17.4 kHz que tu oído alcanzaba a percibir.<br>
-            • Ahora todas las frecuencias están estrictamente por encima de <strong>20,800 Hz con ondas senoidales puras y volumen calibrado</strong> para que el parlante de tu celular no distorsione ni haga ruidos raros.
+    <!-- Modal Guía para Instalar -->
+    <div id="installModal" class="modal-overlay">
+        <div class="modal-box">
+            <h3>📲 Cómo Instalar en tu Celular</h3>
+            <ol>
+                <li>Toca los <strong>tres puntitos (⋮)</strong> arriba a la derecha de tu navegador Chrome.</li>
+                <li>Presiona en <strong>"Instalar aplicación"</strong> o <strong>"Agregar a pantalla principal"</strong>.</li>
+                <li>¡Listo! Tendrás el ícono de la app en tu celular y <strong>funcionará siempre sin internet</strong>.</li>
+            </ol>
+            <button class="btn-modal-close" onclick="closeModal()">¡Entendido, voy a instalarlo!</button>
         </div>
     </div>
 
@@ -466,13 +506,69 @@
                             const installing = reg.installing;
                             installing.onstatechange = () => {
                                 if (installing.state === 'installed' && navigator.serviceWorker.controller) {
-                                    console.log('Nueva versión v4 disponible');
+                                    console.log('Versión actualizada lista');
                                 }
                             };
                         };
                     })
                     .catch(err => console.log('SW error:', err));
             });
+        }
+
+        // Detección de conexión
+        function updateNetStatus() {
+            const b = document.getElementById('netBadge');
+            if (navigator.onLine) {
+                b.textContent = "📶 100% OFFLINE LISTO";
+                b.className = "badge badge-net";
+            } else {
+                b.textContent = "✈️ MODO OFFLINE ACTIVO (SIN INTERNET)";
+                b.className = "badge badge-offline-now";
+            }
+        }
+        window.addEventListener('online', updateNetStatus);
+        window.addEventListener('offline', updateNetStatus);
+        updateNetStatus();
+
+        // Verificar si ya está instalada como app independiente
+        const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+        if (isStandalone) {
+            const btn = document.getElementById('mainInstallBtn');
+            btn.innerHTML = "✅ <span>APP INSTALADA (FUNCIONA SIN INTERNET)</span>";
+            btn.style.background = "linear-gradient(135deg, #059669, #10b981)";
+            btn.style.borderColor = "#34d399";
+            btn.style.animation = "none";
+        }
+
+        // Manejo de Instalación PWA
+        let deferredPrompt = null;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+        });
+
+        function triggerInstallApp() {
+            if (isStandalone) {
+                alert("¡Esta aplicación ya está instalada en tu celular y lista para funcionar sin internet!");
+                return;
+            }
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choice) => {
+                    if (choice.outcome === 'accepted') {
+                        const btn = document.getElementById('mainInstallBtn');
+                        btn.innerHTML = "✅ <span>APP INSTALADA CON ÉXITO</span>";
+                    }
+                    deferredPrompt = null;
+                });
+            } else {
+                // Mostrar guía paso a paso
+                document.getElementById('installModal').style.display = 'flex';
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('installModal').style.display = 'none';
         }
 
         async function forzarActualizacion() {
@@ -487,27 +583,6 @@
             window.location.reload(true);
         }
 
-        // PWA Install Prompt
-        let deferredPrompt;
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            const btn = document.getElementById('installBtn');
-            if (btn) btn.style.display = 'block';
-        });
-
-        function installPWA() {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                deferredPrompt.userChoice.then((choice) => {
-                    if (choice.outcome === 'accepted') {
-                        document.getElementById('installBtn').style.display = 'none';
-                    }
-                    deferredPrompt = null;
-                });
-            }
-        }
-
         // Audio Engine
         let audioCtx = null;
         let isPlaying = false;
@@ -520,7 +595,6 @@
         let animId = null;
         let wakeLock = null;
 
-        // Todas las frecuencias superan los 20,500 Hz (Inaudible para humanos adultos)
         const patrolModes = ['cat_fight', 'snake_silent', 'lizard_silent', 'dog_silent', 'mosquito_silent', 'bat_jammer'];
         let patrolIdx = 0;
 
@@ -615,7 +689,6 @@
         function updateVol(val) {
             document.getElementById('volVal').textContent = val + "%";
             if (gainNode && audioCtx) {
-                // Calibración limpia: max 0.75 para evitar clipping en altavoces de celular
                 const safeGain = (val / 100) * 0.75;
                 gainNode.gain.setValueAtTime(safeGain, audioCtx.currentTime);
             }
@@ -669,7 +742,6 @@
                 osc = null;
             }
 
-            // ONDA SENOIDAL PURA - Nunca usar sawtooth ni square para no generar armónicos feos
             osc = audioCtx.createOscillator();
             osc.type = 'sine';
 
@@ -723,7 +795,6 @@
                 }, 100);
 
             } else if (targetMode === 'mosquito_silent') {
-                // 20,800 Hz puro: inaudible para humanos, perturba el órgano de Johnston de zancudos
                 osc.frequency.setValueAtTime(20800, audioCtx.currentTime);
                 osc.connect(gainNode);
                 osc.start();
@@ -737,10 +808,9 @@
 
         function startSound() {
             const rawVol = document.getElementById('volSlider').value / 100;
-            const safeGain = rawVol * 0.75; // Ganancia segura que evita saturación
+            const safeGain = rawVol * 0.75;
 
             gainNode = audioCtx.createGain();
-            // Rampa suave para evitar el "chasquido" o "pop" inicial
             gainNode.gain.setValueAtTime(0.0001, audioCtx.currentTime);
             gainNode.gain.exponentialRampToValueAtTime(Math.max(0.001, safeGain), audioCtx.currentTime + 0.05);
 
