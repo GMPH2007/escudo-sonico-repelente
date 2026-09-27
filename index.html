@@ -442,6 +442,79 @@
             cursor: pointer;
             margin-top: 14px;
         }
+
+        /* Advertencia Técnica & Física Acústica */
+        .tech-alert-box {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.98));
+            border: 1px solid rgba(245, 158, 11, 0.5);
+            border-radius: 14px;
+            padding: 14px 16px;
+            margin: 14px 0 16px 0;
+            text-align: left;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
+        }
+        .tech-alert-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 9px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid rgba(245, 158, 11, 0.2);
+        }
+        .tech-alert-header .title {
+            color: #fbbf24;
+            font-size: 12.5px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .tech-alert-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+        }
+        .tech-alert-list li {
+            color: #cbd5e1;
+            font-size: 11px;
+            line-height: 1.45;
+            padding-left: 14px;
+            position: relative;
+        }
+        .tech-alert-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #f59e0b;
+            font-weight: bold;
+        }
+        .tech-alert-list li strong {
+            color: #38bdf8;
+        }
+        .tech-alert-list li em {
+            color: #34d399;
+            font-style: normal;
+            font-weight: 600;
+        }
+
+        .strategy-banner {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(6, 95, 70, 0.15));
+            border: 1px solid #10b981;
+            border-radius: 10px;
+            padding: 10px 12px;
+            margin: 12px 0;
+            font-size: 11.5px;
+            color: #a7f3d0;
+            line-height: 1.4;
+        }
+        .strategy-banner strong {
+            color: #34d399;
+        }
     </style>
 </head>
 <body>
@@ -460,7 +533,7 @@
         </div>
 
         <div class="version-row">
-            <span>🌟 VERSIÓN 10.1 (CORRECCIÓN Y ACTIVACIÓN GARANTIZADA)</span>
+            <span>🌟 VERSIÓN 11.0 (BARRIDOS ANTI-HABITUACIÓN & ESTRATEGIA CIENTÍFICA)</span>
             <button class="btn-reload" onclick="forzarActualizacion()">🔄 Limpiar Caché</button>
         </div>
 
@@ -472,6 +545,20 @@
 
         <h1>Escudo Sónico Universal</h1>
         <p class="subtitle">Disuasión por sonido para <strong>todos los animales e insectos juntos o cada uno por separado</strong>.</p>
+
+        <!-- AVISO TÉCNICO Y CIENTÍFICO DE HARDWARE -->
+        <div class="tech-alert-box">
+            <div class="tech-alert-header">
+                <span class="title">🔬 Realidad Técnica & Límites de Hardware</span>
+                <span style="font-size: 10px; background: rgba(245, 158, 11, 0.2); color: #fbbf24; padding: 2px 7px; border-radius: 4px; font-weight: 800;">LEER ANTES DE USAR</span>
+            </div>
+            <ul class="tech-alert-list">
+                <li><strong>📢 Limitación Física del Celular:</strong> Los parlantes de teléfonos móviles están fabricados para la voz humana (cortan a 18-20 kHz). Si emites a 23.5 kHz solo con el celular, el sonido se atenúa. Para frecuencias ultrasónicas puras y 95dB+ de presión, <em>conecta un parlante Bluetooth con tweeters de alta fidelidad</em>.</li>
+                <li><strong>🧱 Efecto "Sombra Acústica":</strong> Los ultrasonidos son ondas milimétricas que <strong>rebotan y NO atraviesan paredes, muebles, piedras ni rocas</strong>. Cualquier obstáculo crea una sombra donde el animal se refugia. <em>Apunta el parlante con línea de visión directa hacia sus madrigueras</em>.</li>
+                <li><strong>🔄 Barridos Dinámicos Anti-Habituación:</strong> Los animales se acostumbran al ruido monótono en pocos días. Esta app ahora emite <strong>barridos de frecuencia continuos con ráfagas y pausas de silencio súbito</strong> para evitar la habituación auditiva y estresarlos continuamente.</li>
+                <li><strong>🎯 El Sonido es un DESALOJADOR TÁCTICO:</strong> La ciencia comprueba que el sonido solo es disuasorio temporal. <strong>La solución 100% definitiva es la física y química</strong>: usa el sonido para hostigarlos y obligarlos a salir de sus escondites directo hacia las trampas y cebos de la guía inferior.</li>
+            </ul>
+        </div>
 
         <!-- Selector de Altavoz -->
         <div class="output-selector-box">
@@ -587,7 +674,14 @@
 
         <!-- GUÍA DE EXTERMINIO DEFINITIVO -->
         <div class="real-tips-box">
-            <h3>🔬 Fórmulas Reales de Exterminio 100% Efectivas:</h3>
+            <h3>🔬 Estrategia Científica 2 en 1 (La Única Solución Definitiva):</h3>
+            
+            <div class="strategy-banner">
+                <strong>🎯 ¿Cómo erradicar plagas de verdad con esta app?</strong><br>
+                <strong>1. Fase Desalojo:</strong> Activa el sonido con el parlante apuntando a techos, grietas o rocas. Las plagas no toleran el estrés acústico prolongado y abandonan sus madrigueras.<br>
+                <strong>2. Fase Trampa/Cebo:</strong> Coloca en sus rutas de huida las trampas con mantequilla de maní o cebos de ácido bórico.<br>
+                <strong>3. Fase Sellado:</strong> Tapa grietas con esponja de alambre de acero (las ratas no pueden roerla) y retira basura y agua estancada.
+            </div>
             
             <div class="tip-item">
                 <strong>🪳 Cucarachas (Exterminio en 48 Horas):</strong>
@@ -934,14 +1028,20 @@
             if (osc1) { try { osc1.stop(); osc1.disconnect(); } catch(e){} osc1 = null; }
             if (osc2) { try { osc2.stop(); osc2.disconnect(); } catch(e){} osc2 = null; }
 
+            if (!audioCtx || !gainNode) return;
+
+            const baseGain = (document.getElementById('volSlider').value / 100);
+            gainNode.gain.cancelScheduledValues(audioCtx.currentTime);
+            gainNode.gain.setValueAtTime(Math.max(0.001, baseGain), audioCtx.currentTime);
+
             if (targetMode === 'military_shock') {
                 osc1 = audioCtx.createOscillator();
                 osc2 = audioCtx.createOscillator();
                 osc1.type = 'sawtooth';
                 osc2.type = 'square';
 
-                osc1.frequency.setValueAtTime(2800, audioCtx.currentTime);
-                osc2.frequency.setValueAtTime(3600, audioCtx.currentTime);
+                osc1.frequency.setValueAtTime(2600, audioCtx.currentTime);
+                osc2.frequency.setValueAtTime(3400, audioCtx.currentTime);
 
                 osc1.connect(shaper);
                 osc2.connect(shaper);
@@ -949,6 +1049,7 @@
                 osc2.start();
 
                 let step = 0;
+                // Sirena militar escalonada a 12 Hz con saturación WaveShaper para dispersión inmediata
                 const freqSteps = [2600, 3400, 4200, 4800, 3100, 4600, 2900, 4400];
                 timerLoop = setInterval(() => {
                     if (!osc1 || !osc2 || !audioCtx) return;
@@ -960,87 +1061,185 @@
                 }, 85);
 
             } else if (targetMode === 'rodent_chaos') {
+                // Roedores: Barrido dinámico amplio (16.5 kHz a 22.5 kHz) con ráfagas de silencio súbito anti-habituación
                 osc1 = audioCtx.createOscillator();
-                osc1.type = 'sine';
-                osc1.frequency.setValueAtTime(23000, audioCtx.currentTime);
+                osc1.type = 'sawtooth'; // Armónicos ricos para mayor estrés coclear
+                osc1.frequency.setValueAtTime(16800, audioCtx.currentTime);
                 osc1.connect(gainNode);
                 osc1.start();
 
+                let isBurst = true;
                 timerLoop = setInterval(() => {
-                    if (!osc1 || !audioCtx) return;
-                    const r = 22000 + Math.random() * 2500;
-                    osc1.frequency.setValueAtTime(r, audioCtx.currentTime);
-                }, 700);
+                    if (!osc1 || !gainNode || !audioCtx) return;
+                    isBurst = !isBurst;
+                    const now = audioCtx.currentTime;
+
+                    if (isBurst) {
+                        // Ráfaga agresiva: barrido súbito de frecuencia
+                        gainNode.gain.cancelScheduledValues(now);
+                        gainNode.gain.setValueAtTime(0.001, now);
+                        gainNode.gain.exponentialRampToValueAtTime(Math.max(0.001, baseGain), now + 0.05);
+
+                        const fStart = 16500 + Math.random() * 2000;
+                        const fEnd = 20500 + Math.random() * 2500;
+                        osc1.frequency.cancelScheduledValues(now);
+                        osc1.frequency.setValueAtTime(fStart, now);
+                        osc1.frequency.exponentialRampToValueAtTime(fEnd, now + 0.55);
+                    } else {
+                        // Silencio súbito anti-habituación (desconcierta al roedor)
+                        gainNode.gain.cancelScheduledValues(now);
+                        gainNode.gain.setValueAtTime(gainNode.gain.value, now);
+                        gainNode.gain.exponentialRampToValueAtTime(0.0001, now + 0.05);
+                    }
+                }, 550);
 
             } else if (targetMode === 'mosquito_silent') {
+                // Zancudos: Modulación de aleteo de libélula (16 Hz) en 18.5 - 20.8 kHz
                 osc1 = audioCtx.createOscillator();
                 osc1.type = 'sine';
-                osc1.frequency.setValueAtTime(20800, audioCtx.currentTime);
-                osc1.connect(gainNode);
-                osc1.start();
-
-            } else if (targetMode === 'fly_stress') {
-                osc1 = audioCtx.createOscillator();
-                osc1.type = 'sine';
-                osc1.frequency.setValueAtTime(19200, audioCtx.currentTime);
+                osc1.frequency.setValueAtTime(18800, audioCtx.currentTime);
                 osc1.connect(gainNode);
                 osc1.start();
 
                 let tog = false;
                 timerLoop = setInterval(() => {
-                    if (!osc1 || !audioCtx) return;
+                    if (!osc1 || !gainNode || !audioCtx) return;
                     tog = !tog;
-                    osc1.frequency.setValueAtTime(tog ? 19400 : 19000, audioCtx.currentTime);
-                }, 120);
+                    const now = audioCtx.currentTime;
+                    const f = tog ? 20800 : 18800;
+                    osc1.frequency.cancelScheduledValues(now);
+                    osc1.frequency.setValueAtTime(f, now);
+                }, 65);
 
-            } else if (targetMode === 'roach_pulse') {
+            } else if (targetMode === 'fly_stress') {
+                // Moscas: Saltos de frecuencia escalonada en 17.5 - 19.5 kHz con micro-pausas
                 osc1 = audioCtx.createOscillator();
                 osc1.type = 'sine';
-                osc1.frequency.setValueAtTime(19800, audioCtx.currentTime);
+                osc1.frequency.setValueAtTime(18200, audioCtx.currentTime);
                 osc1.connect(gainNode);
                 osc1.start();
 
-                let h = false;
+                let step = 0;
+                const flySteps = [17800, 19200, 18500, 19600];
                 timerLoop = setInterval(() => {
                     if (!osc1 || !audioCtx) return;
-                    h = !h;
-                    osc1.frequency.setValueAtTime(h ? 20100 : 19600, audioCtx.currentTime);
-                }, 100);
+                    step = (step + 1) % flySteps.length;
+                    osc1.frequency.setValueAtTime(flySteps[step], audioCtx.currentTime);
+                }, 110);
+
+            } else if (targetMode === 'roach_pulse') {
+                // Cucarachas: Pulsos de micro-choque (18 kHz - 20.2 kHz) para estimular cerdas sensoras
+                osc1 = audioCtx.createOscillator();
+                osc1.type = 'triangle';
+                osc1.frequency.setValueAtTime(19200, audioCtx.currentTime);
+                osc1.connect(gainNode);
+                osc1.start();
+
+                let pulse = false;
+                timerLoop = setInterval(() => {
+                    if (!osc1 || !gainNode || !audioCtx) return;
+                    pulse = !pulse;
+                    const now = audioCtx.currentTime;
+                    gainNode.gain.cancelScheduledValues(now);
+                    gainNode.gain.setValueAtTime(pulse ? Math.max(0.001, baseGain) : 0.0001, now);
+                    if (pulse) {
+                        osc1.frequency.setValueAtTime(18500 + Math.random() * 1600, now);
+                    }
+                }, 90);
 
             } else if (targetMode === 'cat_fight') {
+                // Gatos: Barridos agudos en ráfagas (17.5 kHz - 23 kHz) para peleas y techos
                 osc1 = audioCtx.createOscillator();
-                osc1.type = 'sine';
-                osc1.frequency.setValueAtTime(22500, audioCtx.currentTime);
-                osc1.connect(gainNode);
-                osc1.start();
-
-            } else if (targetMode === 'dog_silent') {
-                osc1 = audioCtx.createOscillator();
-                osc1.type = 'sine';
-                osc1.frequency.setValueAtTime(22000, audioCtx.currentTime);
-                osc1.connect(gainNode);
-                osc1.start();
-
-            } else if (targetMode === 'ant_vibe') {
-                osc1 = audioCtx.createOscillator();
-                osc1.type = 'sine';
+                osc1.type = 'triangle';
                 osc1.frequency.setValueAtTime(18500, audioCtx.currentTime);
                 osc1.connect(gainNode);
                 osc1.start();
 
-            } else if (targetMode === 'bat_jammer') {
-                osc1 = audioCtx.createOscillator();
-                osc1.type = 'sine';
-                osc1.frequency.setValueAtTime(23500, audioCtx.currentTime);
-                osc1.connect(gainNode);
-                osc1.start();
+                let isBurst = true;
+                timerLoop = setInterval(() => {
+                    if (!osc1 || !gainNode || !audioCtx) return;
+                    isBurst = !isBurst;
+                    const now = audioCtx.currentTime;
+                    if (isBurst) {
+                        gainNode.gain.cancelScheduledValues(now);
+                        gainNode.gain.setValueAtTime(0.001, now);
+                        gainNode.gain.exponentialRampToValueAtTime(Math.max(0.001, baseGain), now + 0.04);
 
-            } else if (targetMode === 'snake_silent') {
+                        const f1 = 17500 + Math.random() * 2500;
+                        const f2 = 21000 + Math.random() * 2200;
+                        osc1.frequency.cancelScheduledValues(now);
+                        osc1.frequency.setValueAtTime(f1, now);
+                        osc1.frequency.exponentialRampToValueAtTime(f2, now + 0.45);
+                    } else {
+                        gainNode.gain.cancelScheduledValues(now);
+                        gainNode.gain.setValueAtTime(gainNode.gain.value, now);
+                        gainNode.gain.exponentialRampToValueAtTime(0.0001, now + 0.04);
+                    }
+                }, 480);
+
+            } else if (targetMode === 'dog_silent') {
+                // Perros: Silbato ultrasónico pulsante (20.5 kHz - 22.5 kHz)
                 osc1 = audioCtx.createOscillator();
                 osc1.type = 'sine';
                 osc1.frequency.setValueAtTime(21000, audioCtx.currentTime);
                 osc1.connect(gainNode);
                 osc1.start();
+
+                let isBurst = true;
+                timerLoop = setInterval(() => {
+                    if (!osc1 || !gainNode || !audioCtx) return;
+                    isBurst = !isBurst;
+                    const now = audioCtx.currentTime;
+                    if (isBurst) {
+                        gainNode.gain.cancelScheduledValues(now);
+                        gainNode.gain.setValueAtTime(0.001, now);
+                        gainNode.gain.exponentialRampToValueAtTime(Math.max(0.001, baseGain), now + 0.03);
+
+                        const f = 20500 + Math.random() * 2000;
+                        osc1.frequency.setValueAtTime(f, now);
+                    } else {
+                        gainNode.gain.cancelScheduledValues(now);
+                        gainNode.gain.setValueAtTime(gainNode.gain.value, now);
+                        gainNode.gain.exponentialRampToValueAtTime(0.0001, now + 0.03);
+                    }
+                }, 380);
+
+            } else if (targetMode === 'ant_vibe') {
+                // Hormigas: Modulación de sustrato en 18.2 - 19.5 kHz
+                osc1 = audioCtx.createOscillator();
+                osc1.type = 'sine';
+                osc1.frequency.setValueAtTime(18600, audioCtx.currentTime);
+                osc1.connect(gainNode);
+                osc1.start();
+
+            } else if (targetMode === 'bat_jammer') {
+                // Murciélagos: Jitter ultrasónico en 22 - 24 kHz (interferencia de ecolocación)
+                osc1 = audioCtx.createOscillator();
+                osc1.type = 'sine';
+                osc1.frequency.setValueAtTime(22800, audioCtx.currentTime);
+                osc1.connect(gainNode);
+                osc1.start();
+
+                timerLoop = setInterval(() => {
+                    if (!osc1 || !audioCtx) return;
+                    const rf = 22000 + Math.random() * 2500;
+                    osc1.frequency.setValueAtTime(rf, audioCtx.currentTime);
+                }, 150);
+
+            } else if (targetMode === 'snake_silent') {
+                // Serpientes y lagartijas: Barrido de choque sísmico/acústico en 19.5 - 21.5 kHz
+                osc1 = audioCtx.createOscillator();
+                osc1.type = 'triangle';
+                osc1.frequency.setValueAtTime(20000, audioCtx.currentTime);
+                osc1.connect(gainNode);
+                osc1.start();
+
+                let step = false;
+                timerLoop = setInterval(() => {
+                    if (!osc1 || !audioCtx) return;
+                    step = !step;
+                    osc1.frequency.setValueAtTime(step ? 21200 : 19600, audioCtx.currentTime);
+                }, 200);
             }
         }
 
