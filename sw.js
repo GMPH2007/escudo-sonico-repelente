@@ -1,4 +1,4 @@
-const CACHE_NAME = 'escudo-sonico-v10-todo-en-1';
+const CACHE_NAME = 'escudo-sonico-v10-1-fix';
 const ASSETS = [
   './',
   './index.html',

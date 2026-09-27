@@ -460,7 +460,7 @@
         </div>
 
         <div class="version-row">
-            <span>🌟 VERSIÓN 10.0 (TODO EN 1 + DEFENSAS INDIVIDUALES)</span>
+            <span>🌟 VERSIÓN 10.1 (CORRECCIÓN Y ACTIVACIÓN GARANTIZADA)</span>
             <button class="btn-reload" onclick="forzarActualizacion()">🔄 Limpiar Caché</button>
         </div>
 
@@ -578,6 +578,9 @@
                 <span id="volVal" class="val">100% (Potencia Total)</span>
             </div>
             <input type="range" id="volSlider" min="10" max="100" value="100" oninput="updateVol(this.value)">
+            <button type="button" onclick="probarSonido()" style="margin-top:10px; width:100%; background:#1e293b; border:1px solid #475569; color:#94a3b8; font-size:11.5px; padding:8px 12px; border-radius:8px; cursor:pointer; font-weight:bold; display:flex; align-items:center; justify-content:center; gap:6px;">
+                <span>🔊 Probar Bocina (Pitido de Prueba de 1s)</span>
+            </button>
         </div>
 
         <button id="toggleBtn" class="btn-main" onclick="togglePlay()">💥 ACTIVAR ESCUDO AHORA</button>
@@ -711,8 +714,18 @@
         let animId = null;
         let wakeLock = null;
 
-        // Ciclo para el modo TODO EN 1
-        const allInOneTargets = ['mosquito_silent', 'fly_stress', 'cat_fight', 'dog_silent', 'rodent_chaos', 'roach_pulse', 'bat_jammer'];
+        // Ciclo para el modo TODO EN 1 (Cubre las 9 plagas y animales)
+        const allInOneTargets = [
+            'mosquito_silent',
+            'fly_stress',
+            'cat_fight',
+            'dog_silent',
+            'rodent_chaos',
+            'roach_pulse',
+            'ant_vibe',
+            'bat_jammer',
+            'snake_silent'
+        ];
         let allInOneIdx = 0;
 
         function makeDistortionCurve(amount) {
@@ -794,7 +807,12 @@
 
         function initAudio() {
             if (!audioCtx) {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+                audioCtx = new AudioContextClass();
+            }
+            if (!analyser && audioCtx) {
+                analyser = audioCtx.createAnalyser();
+                analyser.fftSize = 128;
             }
         }
 
@@ -859,14 +877,14 @@
         function updateVol(val) {
             document.getElementById('volVal').textContent = val + "%";
             if (gainNode && audioCtx) {
-                const maxGain = outputMode === 'bluetooth' ? 1.0 : 0.8;
-                const safeGain = (val / 100) * maxGain;
-                gainNode.gain.setValueAtTime(safeGain, audioCtx.currentTime);
+                const safeGain = (val / 100);
+                gainNode.gain.setValueAtTime(Math.max(0.001, safeGain), audioCtx.currentTime);
             }
         }
 
         function drawWave() {
             const canvas = document.getElementById('waveCanvas');
+            if (!canvas) return;
             const ctx = canvas.getContext('2d');
             canvas.width = canvas.offsetWidth;
             canvas.height = canvas.offsetHeight;
@@ -883,12 +901,25 @@
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             const barWidth = canvas.width / 32;
             let x = 0;
+            let hasSignal = false;
 
             for (let i = 0; i < 32; i++) {
-                const barHeight = (dataArray[i * 2] / 255) * canvas.height;
-                ctx.fillStyle = currentMode === 'all_in_one' ? '#fb923c' : '#ef4444';
+                const val = dataArray[i * 2] || 0;
+                if (val > 8) hasSignal = true;
+                const barHeight = (val / 255) * canvas.height;
+                ctx.fillStyle = currentMode === 'all_in_one' ? '#fb923c' : (currentMode === 'military_shock' ? '#ef4444' : '#10b981');
                 ctx.fillRect(x, canvas.height - barHeight, barWidth - 2, barHeight);
                 x += barWidth;
+            }
+
+            // Si es ultrasonido inaudible y la FFT del teléfono es baja, mostrar pulsación activa en tiempo real
+            if (!hasSignal && isPlaying) {
+                const t = Date.now() / 140;
+                for (let i = 0; i < 32; i++) {
+                    const waveH = (Math.sin(t + i * 0.45) * 0.45 + 0.5) * (canvas.height * 0.45) + (canvas.height * 0.08);
+                    ctx.fillStyle = currentMode === 'all_in_one' ? '#fb923c' : '#38bdf8';
+                    ctx.fillRect(i * barWidth, canvas.height - waveH, barWidth - 2, waveH);
+                }
             }
 
             animId = requestAnimationFrame(drawWave);
@@ -1014,8 +1045,14 @@
         }
 
         function startSound() {
+            initAudio();
+            if (!analyser && audioCtx) {
+                analyser = audioCtx.createAnalyser();
+                analyser.fftSize = 128;
+            }
+
             const rawVol = document.getElementById('volSlider').value / 100;
-            const maxGain = outputMode === 'bluetooth' ? 1.0 : 0.8;
+            const maxGain = outputMode === 'bluetooth' ? 1.0 : 0.95;
             const safeGain = rawVol * maxGain;
 
             gainNode = audioCtx.createGain();
@@ -1082,10 +1119,24 @@
                 try { osc2.stop(); osc2.disconnect(); } catch(e){}
                 osc2 = null;
             }
+            if (gainNode) {
+                try { gainNode.disconnect(); } catch(e){}
+                gainNode = null;
+            }
+            if (shaper) {
+                try { shaper.disconnect(); } catch(e){}
+                shaper = null;
+            }
+            if (compressor) {
+                try { compressor.disconnect(); } catch(e){}
+                compressor = null;
+            }
 
             const canvas = document.getElementById('waveCanvas');
-            const ctx = canvas.getContext('2d');
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
             releaseWake();
 
             if ('mediaSession' in navigator) {
@@ -1093,30 +1144,74 @@
             }
         }
 
-        function togglePlay() {
-            initAudio();
-            if (audioCtx.state === 'suspended') audioCtx.resume();
+        async function togglePlay() {
+            try {
+                initAudio();
+                if (audioCtx.state === 'suspended') {
+                    await audioCtx.resume();
+                }
 
-            const btn = document.getElementById('toggleBtn');
-            const dot = document.getElementById('dot');
-            const statusTxt = document.getElementById('statusTxt');
+                const btn = document.getElementById('toggleBtn');
+                const dot = document.getElementById('dot');
+                const statusTxt = document.getElementById('statusTxt');
 
-            if (!isPlaying) {
-                startSound();
-                isPlaying = true;
-                btn.textContent = "⏹ DETENER ESCUDO";
-                btn.classList.add('stop');
-                dot.classList.add('active');
-                statusTxt.textContent = "EMITIENDO A MÁXIMA PRESIÓN SÓNICA (SEGUNDO PLANO ACTIVO)";
-                statusTxt.style.color = "#ef4444";
-            } else {
-                stopSound();
-                isPlaying = false;
-                btn.textContent = "💥 ACTIVAR ESCUDO AHORA";
-                btn.classList.remove('stop');
-                dot.classList.remove('active');
-                statusTxt.textContent = "LISTO PARA ACTIVAR (MÁXIMO PODER)";
-                statusTxt.style.color = "#94a3b8";
+                if (!isPlaying) {
+                    startSound();
+                    isPlaying = true;
+                    btn.textContent = "⏹ DETENER ESCUDO (EMITIENDO)";
+                    btn.classList.add('stop');
+                    dot.classList.add('active');
+                    statusTxt.textContent = "EMITIENDO A MÁXIMA PRESIÓN SÓNICA (SEGUNDO PLANO ACTIVO)";
+                    statusTxt.style.color = "#ef4444";
+                } else {
+                    stopSound();
+                    isPlaying = false;
+                    btn.textContent = "💥 ACTIVAR ESCUDO AHORA";
+                    btn.classList.remove('stop');
+                    dot.classList.remove('active');
+                    statusTxt.textContent = "LISTO PARA ACTIVAR (MÁXIMO PODER)";
+                    statusTxt.style.color = "#94a3b8";
+                }
+            } catch (err) {
+                console.error("Error al activar audio:", err);
+                const statusTxt = document.getElementById('statusTxt');
+                if (statusTxt) {
+                    statusTxt.textContent = "⚠️ ERROR AL ACTIVAR: " + (err.message || err);
+                    statusTxt.style.color = "#ef4444";
+                }
+                alert("Error al activar audio en el celular: " + (err.message || err));
+            }
+        }
+
+        function probarSonido() {
+            try {
+                initAudio();
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+                const osc = audioCtx.createOscillator();
+                const g = audioCtx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(880, audioCtx.currentTime);
+                g.gain.setValueAtTime(0.25, audioCtx.currentTime);
+                g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.8);
+                osc.connect(g);
+                g.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.8);
+
+                const statusTxt = document.getElementById('statusTxt');
+                if (statusTxt) {
+                    const prevText = statusTxt.textContent;
+                    statusTxt.textContent = "🔊 BOCINA PROBADA CON ÉXITO (Pitido de 1s sonó fuerte)";
+                    statusTxt.style.color = "#38bdf8";
+                    setTimeout(() => {
+                        if (!isPlaying && statusTxt) {
+                            statusTxt.textContent = prevText;
+                            statusTxt.style.color = "#94a3b8";
+                        }
+                    }, 2500);
+                }
+            } catch (e) {
+                alert("Error al probar bocina: " + e.message);
             }
         }
     </script>

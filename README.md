@@ -1,6 +1,6 @@
-# 🛡️ Escudo Sónico Multiespecie - Versión 10.0 (Todo en 1 Universal y Control Individual)
+# 🛡️ Escudo Sónico Multiespecie - Versión 10.1 (Activación Garantizada + Test de Bocina)
 
-Aplicación web progresiva (PWA) de máxima potencia con modo **TODO EN 1 (Escudo Universal Multi-Amenazas)** y **modos de frecuencia específicos individuales** para cada plaga y animal. Funciona 100% offline, en segundo plano con pantalla apagada, y con amplificación para parlantes Bluetooth.
+Aplicación web progresiva (PWA) de máxima potencia con modo **TODO EN 1 (Escudo Universal Multi-Amenazas)**, **modos individuales para cada plaga y animal**, y botón de **verificación acústica de bocina**. Funciona 100% offline, en segundo plano con pantalla apagada, y con amplificación para parlantes Bluetooth.
 
 ---
 
