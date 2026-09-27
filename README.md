@@ -1,17 +1,15 @@
-# 🛡️ Escudo Sónico Multiespecie - Versión 7.0 (Roedores y Anti-Acostumbramiento)
+# 🛡️ Escudo Sónico Multiespecie - Versión 8.0 (Bluetooth Decibeles Boost y Exterminio)
 
-Aplicación web progresiva (PWA) de ultra-frecuencia caótica para protección perimetral, parcelas y hogares.
+Aplicación web progresiva (PWA) de alta potencia acústica diseñada para celulares y **parlantes Bluetooth de largo alcance**.
 
-### 🌟 Nuevas Características de la Versión 7.0:
-1. **🐁 Modo Desalojo de Roedores y Ratas (22,000 - 24,500 Hz):**
-   - Diseñado especialmente para ratas, ratones de campo y roedores en parcelas o bodegas.
-   - Interfiere directamente en sus bandas de comunicación ultrasónica para evitar que aniden o se queden en la zona.
-2. **⚡ Algoritmo Anti-Acostumbramiento (Salto Aleatorio Continuo):**
-   - Resuelve el problema de la habituación animal: la aplicación **salta de frecuencia aleatoriamente cada 800ms - 1500ms** de forma impredecible.
-   - Al no existir un tono fijo ni un patrón constante, el sistema nervioso del animal no puede adaptarse ni ignorar el sonido.
-3. **📢 Modo Parcela y Máxima Potencia con Parlante Bluetooth:**
-   - Para cubrir áreas grandes (parcelas, chacras o techos extensos de más de 30 metros), vincula el celular a un parlante Bluetooth exterior de 10W-20W.
-4. **🎧 Soporte en Segundo Plano (Pantalla Apagada) y 100% Offline.**
+### 🌟 Nuevas Características de la Versión 8.0:
+1. **📢 Selector de Salida con Boost para Bluetooth (95 dB+):**
+   - Activa el motor de **Doble Oscilador Disonante** (`sawtooth` + `square` con desfase armónico) y compresión dinámica pesada para exprimir el máximo volumen real de bocinas portátiles Bluetooth o parlantes exteriores.
+2. **🪳 Modo Insectos y Plagas (Cucarachas, Hormigas, Moscas, Zancudos):**
+   - Emite micro-ondas de perturbación sensorial acústica en el perímetro.
+3. **🔬 Fórmulas Reales de Exterminio 100% Efectivas Integradas:**
+   - La guía directa con recetas probadas científicamente para erradicar cucarachas, hormigas, zancudos, moscas, ratas y serpientes de raíz.
+4. **⚡ Algoritmo Anti-Acostumbramiento y 🎧 Segundo Plano con Pantalla Apagada.**
 
 🌐 **Enlace directo a la aplicación:**  
 👉 **[https://gmph2007.github.io/escudo-sonico-repelente/](https://gmph2007.github.io/escudo-sonico-repelente/)**
