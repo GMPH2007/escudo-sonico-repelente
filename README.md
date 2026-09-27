@@ -1,6 +1,12 @@
-# 🛡️ Escudo Sónico - Repelente Ultrasónico Offline (PWA)
+# 🛡️ Escudo Sónico Multiespecie - Repelente Ultrasónico Offline (PWA)
 
-Aplicación web progresiva (PWA) de ultra-alta frecuencia diseñada para ahuyentar y disuadir amenazas biológicas (**perros agresivos, zancudos/mosquitos y murciélagos**) utilizando **ondas senoidales puras** sintetizadas en tiempo real mediante la Web Audio API.
+Aplicación web progresiva (PWA) de alta presión acústica diseñada para proteger tu hogar disuadiendo:
+- 🐱 **Gatos en techos y peleas nocturnas** (carreras y maullidos en techos).
+- 🐍 **Serpientes, culebras y víboras** (vibración sísmica de rocas y suelo).
+- 🦎 **Lagartijas, iguanas y plagas de plantas/jardín**.
+- 🐕 **Perros agresivos y ladridos**.
+- 🦟 **Zancudos y mosquitos**.
+- 🦇 **Murciélagos**.
 
 🌐 **Enlace directo a la aplicación:**  
 👉 **[https://gmph2007.github.io/escudo-sonico-repelente/](https://gmph2007.github.io/escudo-sonico-repelente/)**
@@ -8,49 +14,50 @@ Aplicación web progresiva (PWA) de ultra-alta frecuencia diseñada para ahuyent
 ---
 
 ## ⚡ 100% Funcional Sin Internet (Modo Offline)
-Esta aplicación está programada con arquitectura **PWA (Progressive Web App)** con Service Worker de última generación:
-1. Una vez abierta por primera vez, el sistema guarda en caché todos los componentes (`index.html`, `manifest.json`, iconos y audio-engine).
+Esta aplicación está programada con arquitectura **PWA (Progressive Web App)** con Service Worker:
+1. Una vez abierta por primera vez, el sistema guarda en caché todos los componentes.
 2. Puedes apagar tus datos móviles, apagar el Wi-Fi o activar el **Modo Avión**, y la aplicación seguirá funcionando exactamente igual de potente.
-3. No requiere descargar archivos pesados de audio MP3 externos: genera las ondas matemáticas directamente en el chip de sonido de tu dispositivo.
+3. No requiere descargar archivos pesados de audio externos: sintetiza las ondas directamente en el chip de sonido de tu dispositivo en tiempo real.
 
 ---
 
-## 🐕 Modos de Protección Calibrados
+## 🚀 Selector Turbo Boost (1x, 2x, 3x)
+* **¿Por qué a veces el celular no llega tan lejos?**  
+  Los parlantes de los teléfonos celulares suelen atenuar las frecuencias extremas por protección física.
+* **Solución integrada:** El **Modo Turbo Boost 3x** activa un compresor dinámico de compresión acústica (`DynamicsCompressor`) que empuja la señal al máximo voltaje que soporta el parlante de tu teléfono o parlante Bluetooth sin distorsión dañina, proyectando el sonido a muchos más metros de distancia.
 
-### 1. 🐕 Defensa Canina (Perros Agresivos y Ladridos)
-* **Silbato Canino (23,500 Hz):** Tono de ultra-alta frecuencia 100% inaudible para el oído humano adulto, pero sumamente agudo y molesto para el sistema auditivo canino.
-* **Pulso de Choque (22 - 25 kHz):** Alternancia periódica ultrasónica para frenar ladridos continuos o disuadir aproximaciones agresivas.
+---
 
-### 2. 🦟 Defensa Anti-Zancudos y Mosquitos
-* **Frecuencia Pura (17,400 Hz):** Onda senoidal limpia en el umbral acústico que perturba las antenas sensoriales de los mosquitos sin generar ruidos de motor ni zumbidos molestos en la habitación.
-* **Barrido Dinámico (16,000 - 18,500 Hz):** Oscilación ascendente y descendente continua para evitar la habituación de los insectos.
+## 🛡️ Modos de Protección por Especie
 
-### 3. 🦇 Inhibidor de Murciélagos
-* **Interferencia de Ecolocalización (22,500 Hz):** Frecuencia ultrasónica sintonizada para dificultar la orientación y navegación espacial de murciélagos en techos y exteriores.
+### 1. 🐱 Defensa Anti-Gatos (Peleas y Techos)
+* **Desactiva-Peleas (25,200 Hz):** Saturación acústica en el rango crítico de audición felina que disuelve riñas y maullidos estridentes.
+* **Ahuyenta-Techos (23 - 26 kHz):** Ráfaga pulsante en barrido rápido diseñada para desalojar gatos que caminan o corren en techos de calamina o madera.
+
+### 2. 🐍 Defensa Anti-Serpientes (Suelo y Rocas)
+* **Pulso Sísmico de Rocas (65 - 95 Hz Retumbante):** Las serpientes y culebras **no tienen orejas externas** ni tímpanos convencionales. Huyen exclusivamente por **vibraciones de baja frecuencia en el suelo y rocas**, las cuales perciben a través de su mandíbula como la pisada de un gran depredador.
+
+### 3. 🦎 Lagartijas, Iguanas y Plagas de Jardín
+* **Alarma Rapaz (4,200 Hz):** Frecuencia de estrés acústico que imita el chillido de aves rapaces cazadoras, provocando la huida inmediata de lagartijas e iguanas.
+* **Desalojo Plantas (8,500 Hz):** Resonancia diseñada para perturbar orugas, insectos y plagas que atacan las hojas y tallos.
+
+### 4. 🐕 Defensa Anti-Perros
+* **Silbato Anti-Ataque (22,500 Hz):** Onda pura de alta presión inaudible para humanos pero de impacto directo para perros agresivos.
+* **Pulso Freno (21 - 24 kHz):** Pulsaciones intermitentes para cortar ladridos persistentes.
+
+### 5. 🦟 Zancudos y 🦇 Murciélagos
+* **Antena Zancudo (17,400 Hz):** Tono ultra-agudo puro que desorienta los receptores olfativos y acústicos del mosquito.
+* **Bloqueador Radar (22,500 kHz):** Ciega la ecolocalización y el radar biológico de los murciélagos.
+
+### 6. 🚨 MODO PATRULLAJE TOTAL 360° (Ciclo Automático)
+* Alterna automáticamente cada 12 segundos entre todas las frecuencias (gatos, serpientes, lagartijas, perros, zancudos y murciélagos) para mantener tu casa y jardín blindados continuamente.
 
 ---
 
 ## 📲 Cómo Instalar en tu Celular (Android / Redmi / iPhone)
 
-### En Android / Xiaomi / Redmi (Google Chrome):
 1. Abre [https://gmph2007.github.io/escudo-sonico-repelente/](https://gmph2007.github.io/escudo-sonico-repelente/).
-2. Toca el botón azul **"📲 Instalar en Celular"** en la pantalla, o abre los tres puntos `⋮` del navegador y presiona **"Instalar aplicación"** o **"Agregar a pantalla principal"**.
-3. ¡Listo! Se creará un ícono en la pantalla de inicio de tu celular que abre la app a pantalla completa y sin conexión a internet.
-
-### En iPhone / iPad (Safari):
-1. Abre el enlace en Safari.
-2. Toca el botón de Compartir (icono de caja con flecha hacia arriba).
-3. Selecciona **"Agregar a pantalla de inicio"**.
-
----
-
-## 🛠️ Tecnologías Utilizadas
-* **HTML5 / CSS3 Moderno** (Diseño oscuro espacial responsive con efectos Glassmorphism).
-* **Web Audio API** (Oscillators, GainNodes, Analysers en tiempo real sin latencia).
-* **Canvas 2D** (Visualizador espectral en vivo de la frecuencia emitida).
-* **Screen WakeLock API** (Mantiene la pantalla activa para evitar que el teléfono corte el audio por reposo).
-* **Service Worker Cache-First** (Garantía de ejecución 100% offline).
-
----
+2. Toca el botón azul **"📲 Instalar en Celular"**, o abre los tres puntos `⋮` de Chrome y presiona **"Instalar aplicación"** / **"Agregar a pantalla principal"**.
+3. ¡Listo! Tendrás el acceso directo como una app nativa en tu pantalla de inicio, lista para funcionar sin internet.
 
 Desarrollado y optimizado por [GMPH2007](https://github.com/GMPH2007).
