@@ -533,7 +533,7 @@
         </div>
 
         <div class="version-row">
-            <span>🌟 VERSIÓN 11.0 (BARRIDOS ANTI-HABITUACIÓN & ESTRATEGIA CIENTÍFICA)</span>
+            <span>🌟 VERSIÓN 12.0 (SONIDO PURO Y LIMPIO, MÁXIMA POTENCIA SIN ROBÓTICA)</span>
             <button class="btn-reload" onclick="forzarActualizacion()">🔄 Limpiar Caché</button>
         </div>
 
@@ -918,8 +918,7 @@
             updateMonitorDisplay(mode);
 
             if (isPlaying) {
-                stopSound();
-                startSound();
+                applySoundForMode(mode);
             }
         }
 
@@ -1030,216 +1029,193 @@
 
             if (!audioCtx || !gainNode) return;
 
-            const baseGain = (document.getElementById('volSlider').value / 100);
+            // Volumen 100% constante sin caídas ni silencios robóticos
+            const rawVol = document.getElementById('volSlider').value / 100;
+            const maxGain = outputMode === 'bluetooth' ? 1.0 : 0.95;
+            const safeGain = rawVol * maxGain;
             gainNode.gain.cancelScheduledValues(audioCtx.currentTime);
-            gainNode.gain.setValueAtTime(Math.max(0.001, baseGain), audioCtx.currentTime);
+            gainNode.gain.setValueAtTime(Math.max(0.001, safeGain), audioCtx.currentTime);
 
             if (targetMode === 'military_shock') {
-                osc1 = audioCtx.createOscillator();
-                osc2 = audioCtx.createOscillator();
-                osc1.type = 'sawtooth';
-                osc2.type = 'square';
-
-                osc1.frequency.setValueAtTime(2600, audioCtx.currentTime);
-                osc2.frequency.setValueAtTime(3400, audioCtx.currentTime);
-
-                osc1.connect(shaper);
-                osc2.connect(shaper);
-                osc1.start();
-                osc2.start();
-
-                let step = 0;
-                // Sirena militar escalonada a 12 Hz con saturación WaveShaper para dispersión inmediata
-                const freqSteps = [2600, 3400, 4200, 4800, 3100, 4600, 2900, 4400];
-                timerLoop = setInterval(() => {
-                    if (!osc1 || !osc2 || !audioCtx) return;
-                    step = (step + 1) % freqSteps.length;
-                    const f1 = freqSteps[step];
-                    const f2 = f1 * 1.25;
-                    osc1.frequency.setValueAtTime(f1, audioCtx.currentTime);
-                    osc2.frequency.setValueAtTime(f2, audioCtx.currentTime);
-                }, 85);
-
-            } else if (targetMode === 'rodent_chaos') {
-                // Roedores: Barrido dinámico amplio (16.5 kHz a 22.5 kHz) con ráfagas de silencio súbito anti-habituación
-                osc1 = audioCtx.createOscillator();
-                osc1.type = 'sawtooth'; // Armónicos ricos para mayor estrés coclear
-                osc1.frequency.setValueAtTime(16800, audioCtx.currentTime);
-                osc1.connect(gainNode);
-                osc1.start();
-
-                let isBurst = true;
-                timerLoop = setInterval(() => {
-                    if (!osc1 || !gainNode || !audioCtx) return;
-                    isBurst = !isBurst;
-                    const now = audioCtx.currentTime;
-
-                    if (isBurst) {
-                        // Ráfaga agresiva: barrido súbito de frecuencia
-                        gainNode.gain.cancelScheduledValues(now);
-                        gainNode.gain.setValueAtTime(0.001, now);
-                        gainNode.gain.exponentialRampToValueAtTime(Math.max(0.001, baseGain), now + 0.05);
-
-                        const fStart = 16500 + Math.random() * 2000;
-                        const fEnd = 20500 + Math.random() * 2500;
-                        osc1.frequency.cancelScheduledValues(now);
-                        osc1.frequency.setValueAtTime(fStart, now);
-                        osc1.frequency.exponentialRampToValueAtTime(fEnd, now + 0.55);
-                    } else {
-                        // Silencio súbito anti-habituación (desconcierta al roedor)
-                        gainNode.gain.cancelScheduledValues(now);
-                        gainNode.gain.setValueAtTime(gainNode.gain.value, now);
-                        gainNode.gain.exponentialRampToValueAtTime(0.0001, now + 0.05);
-                    }
-                }, 550);
-
-            } else if (targetMode === 'mosquito_silent') {
-                // Zancudos: Modulación de aleteo de libélula (16 Hz) en 18.5 - 20.8 kHz
+                // Modo Sirena Táctica Audible: Sonido limpio, nítido y de máxima potencia (sin distorsión robótica)
                 osc1 = audioCtx.createOscillator();
                 osc1.type = 'sine';
-                osc1.frequency.setValueAtTime(18800, audioCtx.currentTime);
+                osc1.frequency.setValueAtTime(2800, audioCtx.currentTime);
                 osc1.connect(gainNode);
                 osc1.start();
 
-                let tog = false;
-                timerLoop = setInterval(() => {
-                    if (!osc1 || !gainNode || !audioCtx) return;
-                    tog = !tog;
-                    const now = audioCtx.currentTime;
-                    const f = tog ? 20800 : 18800;
-                    osc1.frequency.cancelScheduledValues(now);
-                    osc1.frequency.setValueAtTime(f, now);
-                }, 65);
-
-            } else if (targetMode === 'fly_stress') {
-                // Moscas: Saltos de frecuencia escalonada en 17.5 - 19.5 kHz con micro-pausas
-                osc1 = audioCtx.createOscillator();
-                osc1.type = 'sine';
-                osc1.frequency.setValueAtTime(18200, audioCtx.currentTime);
-                osc1.connect(gainNode);
-                osc1.start();
-
-                let step = 0;
-                const flySteps = [17800, 19200, 18500, 19600];
+                let sweepUp = true;
                 timerLoop = setInterval(() => {
                     if (!osc1 || !audioCtx) return;
-                    step = (step + 1) % flySteps.length;
-                    osc1.frequency.setValueAtTime(flySteps[step], audioCtx.currentTime);
-                }, 110);
+                    const now = audioCtx.currentTime;
+                    sweepUp = !sweepUp;
+                    const f = sweepUp ? 4200 : 2800;
+                    osc1.frequency.cancelScheduledValues(now);
+                    osc1.frequency.linearRampToValueAtTime(f, now + 0.35);
+                }, 350);
 
-            } else if (targetMode === 'roach_pulse') {
-                // Cucarachas: Pulsos de micro-choque (18 kHz - 20.2 kHz) para estimular cerdas sensoras
+            } else if (targetMode === 'rodent_chaos') {
+                // Roedores: Onda senoidal pura de alta potencia, barrido continuo suave (21.5 kHz a 23.5 kHz)
+                // Cero sonido robótico, cero zumbido parásito, 100% presión acústica continua
                 osc1 = audioCtx.createOscillator();
-                osc1.type = 'triangle';
+                osc1.type = 'sine';
+                osc1.frequency.setValueAtTime(21500, audioCtx.currentTime);
+                osc1.connect(gainNode);
+                osc1.start();
+
+                let sweepUp = true;
+                timerLoop = setInterval(() => {
+                    if (!osc1 || !audioCtx) return;
+                    const now = audioCtx.currentTime;
+                    sweepUp = !sweepUp;
+                    const targetFreq = sweepUp ? 23600 : 21400;
+                    osc1.frequency.cancelScheduledValues(now);
+                    osc1.frequency.linearRampToValueAtTime(targetFreq, now + 1.2);
+                }, 1200);
+
+            } else if (targetMode === 'mosquito_silent') {
+                // Zancudos: Onda pura a 20.8 kHz con modulación de ala suave (20.5 kHz - 21.0 kHz)
+                osc1 = audioCtx.createOscillator();
+                osc1.type = 'sine';
+                osc1.frequency.setValueAtTime(20800, audioCtx.currentTime);
+                osc1.connect(gainNode);
+                osc1.start();
+
+                let dir = true;
+                timerLoop = setInterval(() => {
+                    if (!osc1 || !audioCtx) return;
+                    const now = audioCtx.currentTime;
+                    dir = !dir;
+                    const targetF = dir ? 21000 : 20500;
+                    osc1.frequency.cancelScheduledValues(now);
+                    osc1.frequency.linearRampToValueAtTime(targetF, now + 0.5);
+                }, 500);
+
+            } else if (targetMode === 'fly_stress') {
+                // Moscas: Tono puro en 19.4 kHz con oscilación analógica suave
+                osc1 = audioCtx.createOscillator();
+                osc1.type = 'sine';
                 osc1.frequency.setValueAtTime(19200, audioCtx.currentTime);
                 osc1.connect(gainNode);
                 osc1.start();
 
-                let pulse = false;
+                let dir = true;
                 timerLoop = setInterval(() => {
-                    if (!osc1 || !gainNode || !audioCtx) return;
-                    pulse = !pulse;
+                    if (!osc1 || !audioCtx) return;
                     const now = audioCtx.currentTime;
-                    gainNode.gain.cancelScheduledValues(now);
-                    gainNode.gain.setValueAtTime(pulse ? Math.max(0.001, baseGain) : 0.0001, now);
-                    if (pulse) {
-                        osc1.frequency.setValueAtTime(18500 + Math.random() * 1600, now);
-                    }
-                }, 90);
+                    dir = !dir;
+                    const targetF = dir ? 19700 : 19100;
+                    osc1.frequency.cancelScheduledValues(now);
+                    osc1.frequency.linearRampToValueAtTime(targetF, now + 0.6);
+                }, 600);
 
-            } else if (targetMode === 'cat_fight') {
-                // Gatos: Barridos agudos en ráfagas (17.5 kHz - 23 kHz) para peleas y techos
-                osc1 = audioCtx.createOscillator();
-                osc1.type = 'triangle';
-                osc1.frequency.setValueAtTime(18500, audioCtx.currentTime);
-                osc1.connect(gainNode);
-                osc1.start();
-
-                let isBurst = true;
-                timerLoop = setInterval(() => {
-                    if (!osc1 || !gainNode || !audioCtx) return;
-                    isBurst = !isBurst;
-                    const now = audioCtx.currentTime;
-                    if (isBurst) {
-                        gainNode.gain.cancelScheduledValues(now);
-                        gainNode.gain.setValueAtTime(0.001, now);
-                        gainNode.gain.exponentialRampToValueAtTime(Math.max(0.001, baseGain), now + 0.04);
-
-                        const f1 = 17500 + Math.random() * 2500;
-                        const f2 = 21000 + Math.random() * 2200;
-                        osc1.frequency.cancelScheduledValues(now);
-                        osc1.frequency.setValueAtTime(f1, now);
-                        osc1.frequency.exponentialRampToValueAtTime(f2, now + 0.45);
-                    } else {
-                        gainNode.gain.cancelScheduledValues(now);
-                        gainNode.gain.setValueAtTime(gainNode.gain.value, now);
-                        gainNode.gain.exponentialRampToValueAtTime(0.0001, now + 0.04);
-                    }
-                }, 480);
-
-            } else if (targetMode === 'dog_silent') {
-                // Perros: Silbato ultrasónico pulsante (20.5 kHz - 22.5 kHz)
+            } else if (targetMode === 'roach_pulse') {
+                // Cucarachas: Frecuencia de perturbación sensorial en 19.8 kHz suave y constante
                 osc1 = audioCtx.createOscillator();
                 osc1.type = 'sine';
-                osc1.frequency.setValueAtTime(21000, audioCtx.currentTime);
+                osc1.frequency.setValueAtTime(19800, audioCtx.currentTime);
                 osc1.connect(gainNode);
                 osc1.start();
 
-                let isBurst = true;
+                let dir = true;
                 timerLoop = setInterval(() => {
-                    if (!osc1 || !gainNode || !audioCtx) return;
-                    isBurst = !isBurst;
+                    if (!osc1 || !audioCtx) return;
                     const now = audioCtx.currentTime;
-                    if (isBurst) {
-                        gainNode.gain.cancelScheduledValues(now);
-                        gainNode.gain.setValueAtTime(0.001, now);
-                        gainNode.gain.exponentialRampToValueAtTime(Math.max(0.001, baseGain), now + 0.03);
+                    dir = !dir;
+                    const targetF = dir ? 20200 : 19500;
+                    osc1.frequency.cancelScheduledValues(now);
+                    osc1.frequency.linearRampToValueAtTime(targetF, now + 0.4);
+                }, 400);
 
-                        const f = 20500 + Math.random() * 2000;
-                        osc1.frequency.setValueAtTime(f, now);
-                    } else {
-                        gainNode.gain.cancelScheduledValues(now);
-                        gainNode.gain.setValueAtTime(gainNode.gain.value, now);
-                        gainNode.gain.exponentialRampToValueAtTime(0.0001, now + 0.03);
-                    }
-                }, 380);
+            } else if (targetMode === 'cat_fight') {
+                // Gatos: Barrido agudo puro y limpio (22.0 kHz a 23.4 kHz) sin chasquidos
+                osc1 = audioCtx.createOscillator();
+                osc1.type = 'sine';
+                osc1.frequency.setValueAtTime(22200, audioCtx.currentTime);
+                osc1.connect(gainNode);
+                osc1.start();
+
+                let sweepUp = true;
+                timerLoop = setInterval(() => {
+                    if (!osc1 || !audioCtx) return;
+                    const now = audioCtx.currentTime;
+                    sweepUp = !sweepUp;
+                    const targetF = sweepUp ? 23400 : 21900;
+                    osc1.frequency.cancelScheduledValues(now);
+                    osc1.frequency.linearRampToValueAtTime(targetF, now + 0.8);
+                }, 800);
+
+            } else if (targetMode === 'dog_silent') {
+                // Perros: Silbato canino ultrasónico suave y continuo (21.5 kHz a 22.3 kHz)
+                osc1 = audioCtx.createOscillator();
+                osc1.type = 'sine';
+                osc1.frequency.setValueAtTime(21800, audioCtx.currentTime);
+                osc1.connect(gainNode);
+                osc1.start();
+
+                let sweepUp = true;
+                timerLoop = setInterval(() => {
+                    if (!osc1 || !audioCtx) return;
+                    const now = audioCtx.currentTime;
+                    sweepUp = !sweepUp;
+                    const targetF = sweepUp ? 22400 : 21400;
+                    osc1.frequency.cancelScheduledValues(now);
+                    osc1.frequency.linearRampToValueAtTime(targetF, now + 0.9);
+                }, 900);
 
             } else if (targetMode === 'ant_vibe') {
-                // Hormigas: Modulación de sustrato en 18.2 - 19.5 kHz
+                // Hormigas: 18.6 kHz senoidal puro continuo
                 osc1 = audioCtx.createOscillator();
                 osc1.type = 'sine';
                 osc1.frequency.setValueAtTime(18600, audioCtx.currentTime);
                 osc1.connect(gainNode);
                 osc1.start();
 
+                let dir = true;
+                timerLoop = setInterval(() => {
+                    if (!osc1 || !audioCtx) return;
+                    const now = audioCtx.currentTime;
+                    dir = !dir;
+                    const targetF = dir ? 19100 : 18400;
+                    osc1.frequency.cancelScheduledValues(now);
+                    osc1.frequency.linearRampToValueAtTime(targetF, now + 1.0);
+                }, 1000);
+
             } else if (targetMode === 'bat_jammer') {
-                // Murciélagos: Jitter ultrasónico en 22 - 24 kHz (interferencia de ecolocación)
+                // Murciélagos: 22.8 kHz a 23.8 kHz oscilación rápida y limpia
                 osc1 = audioCtx.createOscillator();
                 osc1.type = 'sine';
-                osc1.frequency.setValueAtTime(22800, audioCtx.currentTime);
+                osc1.frequency.setValueAtTime(23200, audioCtx.currentTime);
                 osc1.connect(gainNode);
                 osc1.start();
 
+                let dir = true;
                 timerLoop = setInterval(() => {
                     if (!osc1 || !audioCtx) return;
-                    const rf = 22000 + Math.random() * 2500;
-                    osc1.frequency.setValueAtTime(rf, audioCtx.currentTime);
-                }, 150);
+                    const now = audioCtx.currentTime;
+                    dir = !dir;
+                    const targetF = dir ? 23800 : 22600;
+                    osc1.frequency.cancelScheduledValues(now);
+                    osc1.frequency.linearRampToValueAtTime(targetF, now + 0.35);
+                }, 350);
 
             } else if (targetMode === 'snake_silent') {
-                // Serpientes y lagartijas: Barrido de choque sísmico/acústico en 19.5 - 21.5 kHz
+                // Serpientes y lagartijas: 20.8 kHz senoidal puro con modulación de onda profunda
                 osc1 = audioCtx.createOscillator();
-                osc1.type = 'triangle';
-                osc1.frequency.setValueAtTime(20000, audioCtx.currentTime);
+                osc1.type = 'sine';
+                osc1.frequency.setValueAtTime(20800, audioCtx.currentTime);
                 osc1.connect(gainNode);
                 osc1.start();
 
-                let step = false;
+                let dir = true;
                 timerLoop = setInterval(() => {
                     if (!osc1 || !audioCtx) return;
-                    step = !step;
-                    osc1.frequency.setValueAtTime(step ? 21200 : 19600, audioCtx.currentTime);
-                }, 200);
+                    const now = audioCtx.currentTime;
+                    dir = !dir;
+                    const targetF = dir ? 21400 : 20200;
+                    osc1.frequency.cancelScheduledValues(now);
+                    osc1.frequency.linearRampToValueAtTime(targetF, now + 1.1);
+                }, 1100);
             }
         }
 
@@ -1258,17 +1234,12 @@
             gainNode.gain.setValueAtTime(0.0001, audioCtx.currentTime);
             gainNode.gain.exponentialRampToValueAtTime(Math.max(0.001, safeGain), audioCtx.currentTime + 0.05);
 
-            shaper = audioCtx.createWaveShaper();
-            shaper.curve = makeDistortionCurve(outputMode === 'bluetooth' ? 30 : 15);
-            shaper.oversample = '4x';
-            shaper.connect(gainNode);
-
             compressor = audioCtx.createDynamicsCompressor();
-            compressor.threshold.setValueAtTime(outputMode === 'bluetooth' ? -2 : -6, audioCtx.currentTime);
-            compressor.knee.setValueAtTime(40, audioCtx.currentTime);
-            compressor.ratio.setValueAtTime(20, audioCtx.currentTime);
+            compressor.threshold.setValueAtTime(outputMode === 'bluetooth' ? -1 : -4, audioCtx.currentTime);
+            compressor.knee.setValueAtTime(25, audioCtx.currentTime);
+            compressor.ratio.setValueAtTime(12, audioCtx.currentTime);
             compressor.attack.setValueAtTime(0.001, audioCtx.currentTime);
-            compressor.release.setValueAtTime(0.1, audioCtx.currentTime);
+            compressor.release.setValueAtTime(0.05, audioCtx.currentTime);
 
             gainNode.connect(compressor);
             compressor.connect(analyser);

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'escudo-sonico-v11-sweeping-strategy';
+const CACHE_NAME = 'escudo-sonico-v12-pure-smooth-audio';
 const ASSETS = [
   './',
   './index.html',
